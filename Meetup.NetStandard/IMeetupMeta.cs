@@ -5,6 +5,6 @@ namespace Meetup.NetStandard
 {
     public interface IMeetupMeta
     {
-        Task<StatusResponse> Status(MeetupRequestOptions options = null);
+        Task<MeetupResponse<StatusResponse>> Status(MeetupRequestOptions options = null);
     }
 }

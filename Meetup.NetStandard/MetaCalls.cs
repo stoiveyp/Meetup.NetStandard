@@ -16,7 +16,7 @@ namespace Meetup.NetStandard
             _serializer = serializer;
         }
 
-        public async Task<StatusResponse> Status(MeetupRequestOptions options = null)
+        public async Task<MeetupResponse<StatusResponse>> Status(MeetupRequestOptions options = null)
         {
             var requestMessage = options ?? new MeetupRequestOptions();
             var response = await requestMessage.GetAsync("/status",_client);

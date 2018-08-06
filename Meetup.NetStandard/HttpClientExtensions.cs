@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using Meetup.NetStandard.Response;
 using Newtonsoft.Json;
 
 namespace Meetup.NetStandard
 {
     public static class HttpClientExtensions
     {
-        public static async Task<T> AsObject<T>(this HttpResponseMessage response,JsonSerializer serializer)
+        public static async Task<MeetupResponse<T>> AsObject<T>(this HttpResponseMessage response,JsonSerializer serializer)
         {
             if (response.Content == null)
             {
-                return default(T);
+                return default(MeetupResponse<T>);
             }
 
             var stream = await response.Content.ReadAsStreamAsync();
             using (var reader = new JsonTextReader(new StreamReader(stream)))
             {
-                return serializer.Deserialize<T>(reader);
+                 var objectContent = serializer.Deserialize<T>(reader);
+                return new MeetupResponse<T>(response,objectContent);
             }
         }
     }

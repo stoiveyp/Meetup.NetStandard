@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Meetup.NetStandard.Response
 {
-    public class StatusResponse:MeetupResponse
+    public class StatusResponse
     {
         [JsonProperty("title")]
         public string Title { get; set; }

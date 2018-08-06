@@ -28,7 +28,9 @@ namespace Meetup.NetStandard.Tests
         {
             var client = FakeHttpClient.AssertResponse("StatusResponse");
             var meetup = new MeetupClient(client);
-            var statusResponse = await meetup.Meta.Status();
+            var meetupResponse = await meetup.Meta.Status();
+            var statusResponse = meetupResponse.Data;
+
             Assert.Equal("test message",statusResponse.Message);
             Assert.Equal("test title",statusResponse.Title);
             Assert.Equal(ApiStatus.Unavailable,statusResponse.Status);

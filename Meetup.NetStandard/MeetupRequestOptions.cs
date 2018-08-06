@@ -2,15 +2,17 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
+using Meetup.NetStandard.Response;
 
 namespace Meetup.NetStandard
 {
     public class MeetupRequestOptions
     {
-        public Task<HttpResponseMessage> GetAsync(string requestUri,HttpClient client, Dictionary<string,string> querystringParameters = null)
+        public async Task<HttpResponseMessage> GetAsync(string requestUri,HttpClient client, Dictionary<string,string> querystringParameters = null)
         {
             var message = new HttpRequestMessage(HttpMethod.Get, $"{requestUri}{BuildQueryString(querystringParameters)}");
-            return client.SendAsync(message);
+            var response = await client.SendAsync(message);
+            return response;
         }
 
         private static string BuildQueryString(Dictionary<string, string> qstring)
