@@ -33,7 +33,7 @@ namespace Meetup.NetStandard.Tests
 
             Assert.Equal("test message",statusResponse.Message);
             Assert.Equal("test title",statusResponse.Title);
-            Assert.Equal(ApiStatus.Unavailable,statusResponse.Status);
+            Assert.Equal(ApiStatus.Unavailable,statusResponse.ApiStatus);
         }
 
     }

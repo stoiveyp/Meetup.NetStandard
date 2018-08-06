@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Meetup.NetStandard.Response
 {
-    public class StatusResponse
+    public class Status
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -14,6 +14,6 @@ namespace Meetup.NetStandard.Response
         public string Message { get; set; }
 
         [JsonProperty("status")]
-        public ApiStatus Status { get; set; }
+        public ApiStatus ApiStatus { get; set; }
     }
 }
