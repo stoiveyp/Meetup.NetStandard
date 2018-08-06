@@ -35,7 +35,7 @@ namespace Meetup.NetStandard.Tests
         }
 
         [Fact]
-        public void RateLimitData()
+        public void ResponseSetsDataCorrectly()
         {
             var message = new HttpResponseMessage();
             var data = new Object();
