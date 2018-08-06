@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Meetup.NetStandard.Tests
@@ -9,21 +10,29 @@ namespace Meetup.NetStandard.Tests
         private const string TestToken = "testtoken";
 
         [Fact]
-        public void EmptyTokenThrowsException()
+        public void EmptyOAuthTokenThrowsException()
         {
-            Assert.Throws<ArgumentException>("token",() => new MeetupClient(string.Empty));
+            Assert.Throws<ArgumentException>("token",() => MeetupClient.WithOAuthToken(string.Empty));
         }
 
         [Fact]
-        public void NullTokenThrowsException()
+        public void NullOAuthTokenThrowsException()
         {
-            Assert.Throws<ArgumentException>("token", () => new MeetupClient((string)null));
+            Assert.Throws<ArgumentException>("token", () => MeetupClient.WithOAuthToken((string)null));
         }
 
         [Fact]
-        public void ValidTokenCreatesClient()
+        public void CustomSerializerWithOAuthTokenSetCorrectly()
         {
-            var client = new MeetupClient(TestToken);
+            var serializer = new JsonSerializer();
+            var meetupClient = MeetupClient.WithOAuthToken(TestToken, serializer);
+            Assert.Equal(serializer,meetupClient.Serializer);
+        }
+
+        [Fact]
+        public void ValidOAuthTokenCreatesClient()
+        {
+            var client = MeetupClient.WithOAuthToken(TestToken);
             var header = client.Client.DefaultRequestHeaders.Authorization;
             Assert.Equal("Bearer",header.Scheme);
             Assert.Equal(TestToken,header.Parameter);
@@ -41,6 +50,15 @@ namespace Meetup.NetStandard.Tests
             var httpClient = new HttpClient();
             var meetupClient = new MeetupClient(httpClient);
             Assert.Equal(httpClient,meetupClient.Client);
+            Assert.NotNull(meetupClient.Serializer);
+        }
+
+        [Fact]
+        public void ValidSerializerSetCorrectly()
+        {
+            var serializer = new JsonSerializer();
+            var meetupClient = new MeetupClient(new HttpClient(), serializer);
+            Assert.Equal(serializer,meetupClient.Serializer);
         }
     }
 }
