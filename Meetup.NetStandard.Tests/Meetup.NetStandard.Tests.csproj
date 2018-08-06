@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Meetup.NetStandard\Meetup.NetStandard.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Examples\StatusResponse.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

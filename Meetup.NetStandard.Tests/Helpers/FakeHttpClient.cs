@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using Xunit;
 
@@ -16,6 +17,16 @@ namespace Meetup.NetStandard.Tests.Helpers
             {
                 Assert.Equal(requestUri,r.RequestUri.PathAndQuery);
                 return new HttpResponseMessage();
+            });
+        }
+
+        public static HttpClient AssertResponse(string responseExample)
+        {
+            return new FakeHttpClient(r =>
+            {
+                var message = new HttpResponseMessage(HttpStatusCode.OK);
+                message.Content = new StringContent(System.IO.File.ReadAllText($"Examples/{responseExample}.json"));
+                return message;
             });
         }
     }
