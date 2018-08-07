@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Response;
+using Meetup.NetStandard.Response.Meta;
 using Newtonsoft.Json;
 
 namespace Meetup.NetStandard

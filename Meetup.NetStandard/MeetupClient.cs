@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+
+[assembly:InternalsVisibleTo("Meetup.NetStandard.Tests")]
 
 namespace Meetup.NetStandard
 {
@@ -12,6 +15,7 @@ namespace Meetup.NetStandard
         public DefaultClientOptions Defaults { get; }
 
         private IMeetupMeta _meta;
+        private IMeetupLocation _location;
 
         public static MeetupClient WithApiToken(string token, DefaultClientOptions options = null)
         {
@@ -45,8 +49,9 @@ namespace Meetup.NetStandard
         }
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Defaults));
+        public IMeetupLocation Location => _location ?? (_location = new LocationCalls(Defaults));
 
-        public static DefaultClientOptions SetupOptions(DefaultClientOptions options, HttpClient client)
+        internal static DefaultClientOptions SetupOptions(DefaultClientOptions options, HttpClient client)
         {
             options = options ?? new DefaultClientOptions();
             options.Client = client ?? options.Client ?? new HttpClient();
