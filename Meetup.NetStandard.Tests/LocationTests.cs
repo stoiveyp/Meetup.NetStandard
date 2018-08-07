@@ -46,9 +46,29 @@ namespace Meetup.NetStandard.Tests
         }
 
         [Fact]
-        public void IFindNameAssertions()
+        public void IFindRequestAdditionalAssertions()
         {
             var find = new FindRequest(null);
+            var ifind = (IFindRequestAdditional)find;
+            ifind.AndByCoordinate(20.0, 45.3);
+            Assert.Equal(20.0, find.Longitude);
+            Assert.Equal(45.3, find.Latitude);
+
+            ifind.AndByName("test");
+            Assert.Equal("test", find.Query);
+
+            ifind.OnPage(1);
+            Assert.Equal(1, find.Page);
+
+            ifind.WithPageSize(20);
+            Assert.Equal(20, find.PageSize);
+        }
+
+
+        [Fact]
+        public void IFindExecutorCreatesCorrectResponse()
+        {
+
         }
     }
 }

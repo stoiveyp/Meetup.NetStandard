@@ -3,6 +3,6 @@
     public interface IFindRequestPager<T>
     {
         T WithPageSize(int pageSize);
-        T OnPage(int pageSize);
+        T OnPage(int page);
     }
 }
