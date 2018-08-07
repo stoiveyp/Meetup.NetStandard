@@ -1,0 +1,8 @@
+﻿{
+  "errors": [
+    {
+      "code": "blocked",
+      "message": "Credentials have been throttled more than the allowed times in one hour"
+    }
+  ]
+}
