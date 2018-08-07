@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
@@ -8,12 +9,24 @@ namespace Meetup.NetStandard
     public class MeetupClient
     {
         public const string MeetupApiBaseAddress = "https://api.meetup.com";
-        public HttpClient Client { get; }
-        public JsonSerializer Serializer { get; }
+        public DefaultClientOptions Defaults { get; }
 
         private IMeetupMeta _meta;
 
-        public static MeetupClient WithOAuthToken(string token, JsonSerializer customSerializer = null)
+        public static MeetupClient WithApiToken(string token, DefaultClientOptions options = null)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                throw new ArgumentException("No token specified", nameof(token));
+            }
+
+            options = SetupOptions(options, null);
+            options.AddedQueryString.Add("sign","true");
+            options.AddedQueryString.Add("key",token);
+            return new MeetupClient(options);
+        }
+
+        public static MeetupClient WithOAuthToken(string token, DefaultClientOptions options = null)
         {
             if (string.IsNullOrWhiteSpace(token))
             {
@@ -23,20 +36,29 @@ namespace Meetup.NetStandard
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            return new MeetupClient(client, customSerializer);
+            return new MeetupClient(SetupOptions(options,client));
         }
 
-        public MeetupClient(HttpClient client, JsonSerializer serializer = null)
+        public MeetupClient(DefaultClientOptions options)
         {
-            Client = client ?? throw new ArgumentNullException(nameof(client));
-            if (Client.BaseAddress == null)
+            Defaults = SetupOptions(options,null);
+        }
+
+        public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Defaults));
+
+        private static DefaultClientOptions SetupOptions(DefaultClientOptions options, HttpClient client)
+        {
+            options = options ?? new DefaultClientOptions();
+            options.Client = client ?? options.Client ?? new HttpClient();
+            options.CustomSerializer = options.CustomSerializer ?? JsonSerializer.CreateDefault();
+            options.AddedQueryString = options.AddedQueryString ?? new Dictionary<string, string>();
+
+            if (options.Client.BaseAddress == null)
             {
-                Client.BaseAddress = new Uri(MeetupApiBaseAddress, UriKind.Absolute);
+                options.Client.BaseAddress = new Uri(MeetupApiBaseAddress, UriKind.Absolute);
             }
 
-            Serializer = serializer ?? JsonSerializer.CreateDefault();
+            return options;
         }
-
-        public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Client, Serializer));
     }
 }

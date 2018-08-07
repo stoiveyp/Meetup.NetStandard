@@ -8,7 +8,7 @@ namespace Meetup.NetStandard
 {
     public static class HttpClientExtensions
     {
-        public static async Task<MeetupResponse<T>> AsObject<T>(this HttpResponseMessage response,JsonSerializer serializer)
+        public static async Task<MeetupResponse<T>> AsObject<T>(this HttpResponseMessage response,DefaultClientOptions options)
         {
             if (response.Content == null)
             {
@@ -18,7 +18,7 @@ namespace Meetup.NetStandard
             var stream = await response.Content.ReadAsStreamAsync();
             using (var reader = new JsonTextReader(new StreamReader(stream)))
             {
-                 var objectContent = serializer.Deserialize<T>(reader);
+                 var objectContent = options.CustomSerializer.Deserialize<T>(reader);
                 return new MeetupResponse<T>(response,objectContent);
             }
         }

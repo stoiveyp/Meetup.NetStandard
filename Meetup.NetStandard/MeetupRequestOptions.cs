@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
@@ -6,16 +7,20 @@ using Meetup.NetStandard.Response;
 
 namespace Meetup.NetStandard
 {
-    public class MeetupRequestOptions
+    public static class MeetupRequestMethods
     {
-        public async Task<HttpResponseMessage> GetAsync(string requestUri,HttpClient client, Dictionary<string,string> querystringParameters = null)
+        public static async Task<HttpResponseMessage> GetAsync(
+            string requestUri,
+            DefaultClientOptions options,
+            Dictionary<string,string> querystringParameters = null)
         {
-            var message = new HttpRequestMessage(HttpMethod.Get, $"{requestUri}{BuildQueryString(querystringParameters)}");
-            var response = await client.SendAsync(message);
+            var fullUri = $"{requestUri}{BuildQueryString(querystringParameters,options)}";
+            var message = new HttpRequestMessage(HttpMethod.Get, fullUri);
+            var response = await options.Client.SendAsync(message);
             return response;
         }
 
-        private static string BuildQueryString(Dictionary<string, string> qstring)
+        private static string BuildQueryString(Dictionary<string, string> qstring, DefaultClientOptions options)
         {
             if (qstring == null)
             {
@@ -24,7 +29,8 @@ namespace Meetup.NetStandard
 
             var osb = new StringBuilder();
             var first = true;
-            foreach (var item in qstring)
+            foreach (var item in options?.AddedQueryString == null 
+                ? qstring : qstring.Concat(options.AddedQueryString))
             {
                 osb.Append(first ? "?" : "&");
 

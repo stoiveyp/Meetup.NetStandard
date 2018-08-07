@@ -7,20 +7,17 @@ namespace Meetup.NetStandard
 {
     internal class MetaCalls:IMeetupMeta
     {
-        private readonly HttpClient _client;
-        private readonly JsonSerializer _serializer;
+        private readonly DefaultClientOptions _options;
 
-        internal MetaCalls(HttpClient client,JsonSerializer serializer)
+        internal MetaCalls(DefaultClientOptions options)
         {
-            _client = client;
-            _serializer = serializer;
+            _options = options;
         }
 
-        public async Task<MeetupResponse<Status>> Status(MeetupRequestOptions options = null)
+        public async Task<MeetupResponse<Status>> Status()
         {
-            var requestMessage = options ?? new MeetupRequestOptions();
-            var response = await requestMessage.GetAsync("/status",_client);
-            return await response.AsObject<Status>(_serializer);
+            var response = await MeetupRequestMethods.GetAsync("/status",_options);
+            return await response.AsObject<Status>(_options);
         }
     }
 }

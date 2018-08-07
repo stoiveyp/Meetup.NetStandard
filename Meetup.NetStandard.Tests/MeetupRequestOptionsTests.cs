@@ -12,15 +12,13 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public async Task SetQuerystringAppearsInUrl()
         {
-            var client = new FakeHttpClient(req =>
+            var defaults = new DefaultClientOptions{Client= new FakeHttpClient(req =>
             {
                 Assert.Equal("/test?test=test", req.RequestUri.PathAndQuery);
                 return new HttpResponseMessage();
-            });
+            })};
 
-            var meetup = new MeetupRequestOptions();
-
-            await meetup.GetAsync("/test",client,new Dictionary<string,string>
+            await MeetupRequestMethods.GetAsync("/test",defaults,new Dictionary<string,string>
             {
                 {"test","test"}
             });

@@ -11,7 +11,7 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public void MetaCreated()
         {
-            var client = new MeetupClient(new HttpClient());
+            var client = new MeetupClient(null);
             Assert.NotNull(client.Meta);
         }
 
@@ -19,15 +19,22 @@ namespace Meetup.NetStandard.Tests
         public async Task StatusCreatesCorrectCall()
         {
             var client = FakeHttpClient.AssertUrl("/status");
-            var meetup = new MeetupClient(client);
+            var defaults = new DefaultClientOptions
+            {
+                Client = client
+            };
+            var meetup = new MeetupClient(defaults);
             await meetup.Meta.Status();
         }
 
         [Fact]
         public async Task StatusDeserialisesCorrectly()
         {
-            var client = FakeHttpClient.AssertResponse("StatusResponse");
-            var meetup = new MeetupClient(client);
+            var defaults = new DefaultClientOptions
+            {
+                Client = FakeHttpClient.AssertResponse("StatusResponse")
+            };
+            var meetup = new MeetupClient(defaults);
             var meetupResponse = await meetup.Meta.Status();
             var statusResponse = meetupResponse.Data;
 

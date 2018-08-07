@@ -10,6 +10,27 @@ namespace Meetup.NetStandard.Tests
         private const string TestToken = "testtoken";
 
         [Fact]
+        public void SignedWithEmptyTokenThrowsException()
+        {
+            Assert.Throws<ArgumentException>("token", () => MeetupClient.WithApiToken(string.Empty));
+        }
+
+        [Fact]
+        public void SignedWithNullTokenThrowsException()
+        {
+            Assert.Throws<ArgumentException>("token", () => MeetupClient.WithApiToken(null));
+        }
+
+        [Fact]
+        public void ValidTokenCreatesClient()
+        {
+            var client = MeetupClient.WithApiToken(TestToken);
+            Assert.NotNull(client.Defaults.AddedQueryString);
+            Assert.Equal("true",client.Defaults.AddedQueryString["sign"]);
+            Assert.Equal(TestToken,client.Defaults.AddedQueryString["key"]);
+        }
+
+        [Fact]
         public void EmptyOAuthTokenThrowsException()
         {
             Assert.Throws<ArgumentException>("token",() => MeetupClient.WithOAuthToken(string.Empty));
@@ -24,41 +45,30 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public void CustomSerializerWithOAuthTokenSetCorrectly()
         {
-            var serializer = new JsonSerializer();
-            var meetupClient = MeetupClient.WithOAuthToken(TestToken, serializer);
-            Assert.Equal(serializer,meetupClient.Serializer);
+            var defaults = new DefaultClientOptions
+            {
+                CustomSerializer = new JsonSerializer()
+            };
+            var meetupClient = MeetupClient.WithOAuthToken(TestToken, defaults);
+            Assert.Equal(defaults,meetupClient.Defaults);
         }
 
         [Fact]
         public void ValidOAuthTokenCreatesClient()
         {
             var client = MeetupClient.WithOAuthToken(TestToken);
-            var header = client.Client.DefaultRequestHeaders.Authorization;
+            var header = client.Defaults.Client.DefaultRequestHeaders.Authorization;
             Assert.Equal("Bearer",header.Scheme);
             Assert.Equal(TestToken,header.Parameter);
         }
 
         [Fact]
-        public void InvalidHttpClientCreateClient()
+        public void NullDefaultCreatesDefaults()
         {
-            Assert.Throws<ArgumentNullException>("client",() => new MeetupClient((HttpClient)null));
-        }
-
-        [Fact]
-        public void ValidHttpClientSetCorrectly()
-        {
-            var httpClient = new HttpClient();
-            var meetupClient = new MeetupClient(httpClient);
-            Assert.Equal(httpClient,meetupClient.Client);
-            Assert.NotNull(meetupClient.Serializer);
-        }
-
-        [Fact]
-        public void ValidSerializerSetCorrectly()
-        {
-            var serializer = new JsonSerializer();
-            var meetupClient = new MeetupClient(new HttpClient(), serializer);
-            Assert.Equal(serializer,meetupClient.Serializer);
+            var meetupclient = new MeetupClient(null);
+            Assert.NotNull(meetupclient.Defaults);
+            Assert.NotNull(meetupclient.Defaults.CustomSerializer);
+            Assert.NotNull(meetupclient.Defaults.Client);
         }
     }
 }
