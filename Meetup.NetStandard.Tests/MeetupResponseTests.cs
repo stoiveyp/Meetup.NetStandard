@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Response;
@@ -42,5 +44,21 @@ namespace Meetup.NetStandard.Tests
             var meetup = new MeetupResponse<object>(message,data);
             Assert.Equal(data,meetup.Data);
         }
+
+        [Fact]
+        public async Task ErrorResponseOnNotSuccess()
+        {
+            var message =new HttpResponseMessage(HttpStatusCode.InsufficientStorage);
+            await Assert.ThrowsAsync<MeetupException>(() => HttpClientExtensions.AsObject<object>(message, null));
+        }
+
+        [Fact]
+        public async Task ErrorContentOnErrorJson()
+        {
+            var message = FakeHttpClient.MessageResponse(HttpStatusCode.InsufficientStorage,"Throttled");
+            var exception = await Assert.ThrowsAsync<MeetupException>(() => HttpClientExtensions.AsObject<object>(message, MeetupClient.SetupOptions(null,null)));
+            Assert.Single(exception.Errors);
+        }
+
     }
 }

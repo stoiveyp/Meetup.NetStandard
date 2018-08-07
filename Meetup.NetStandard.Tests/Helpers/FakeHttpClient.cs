@@ -29,5 +29,12 @@ namespace Meetup.NetStandard.Tests.Helpers
                 return message;
             });
         }
+
+        public static HttpResponseMessage MessageResponse(HttpStatusCode code, string responseExample)
+        {
+            var message = new HttpResponseMessage(code);
+            message.Content = new StringContent(System.IO.File.ReadAllText($"Examples/{responseExample}.json"));
+            return message;
+        }
     }
 }

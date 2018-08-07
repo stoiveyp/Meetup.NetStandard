@@ -46,7 +46,7 @@ namespace Meetup.NetStandard
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Defaults));
 
-        private static DefaultClientOptions SetupOptions(DefaultClientOptions options, HttpClient client)
+        public static DefaultClientOptions SetupOptions(DefaultClientOptions options, HttpClient client)
         {
             options = options ?? new DefaultClientOptions();
             options.Client = client ?? options.Client ?? new HttpClient();
