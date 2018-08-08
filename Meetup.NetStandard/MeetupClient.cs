@@ -4,6 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Security;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Meetup.NetStandard.Response;
+using Meetup.NetStandard.Response.Meta;
 using Newtonsoft.Json;
 
 [assembly:InternalsVisibleTo("Meetup.NetStandard.Tests")]
@@ -68,6 +71,12 @@ namespace Meetup.NetStandard
             }
 
             return options;
+        }
+
+        public async Task<MeetupResponse<T>> GoToLink<T>(MeetupLink<T> meetupLink)
+        {
+            var response = await MeetupRequestMethods.GetAsync(meetupLink.Url, Options);
+            return await response.AsObject<T>(Options);
         }
     }
 }

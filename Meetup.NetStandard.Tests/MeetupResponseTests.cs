@@ -70,5 +70,19 @@ namespace Meetup.NetStandard.Tests
             Assert.Single(exception.Errors);
         }
 
+        [Fact]
+        public void PaginationLinksWorkCorrectly()
+        {
+            var nextLink = "https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=2";
+            var prevLink = "https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=0";
+            var message = new HttpResponseMessage();
+            message.Headers.Add("Link", $"<{nextLink}>; rel=\"next\"");
+            message.Headers.Add("Link", $"<{prevLink}>; rel=\"prev\"");
+
+            var meetup = new MeetupResponse<object>(message, null);
+            Assert.NotNull(meetup.Previous);
+            Assert.NotNull(meetup.Next);
+
+        }
     }
 }
