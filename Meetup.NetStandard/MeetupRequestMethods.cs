@@ -11,7 +11,7 @@ namespace Meetup.NetStandard
     {
         public static async Task<HttpResponseMessage> GetAsync(
             string requestUri,
-            DefaultClientOptions options,
+            MeetupClientOptions options,
             Dictionary<string,string> querystringParameters = null)
         {
             var fullUri = $"{requestUri}{BuildQueryString(querystringParameters,options)}";
@@ -20,7 +20,7 @@ namespace Meetup.NetStandard
             return response;
         }
 
-        private static string BuildQueryString(Dictionary<string, string> qstring, DefaultClientOptions options)
+        private static string BuildQueryString(Dictionary<string, string> qstring, MeetupClientOptions options)
         {
             if (qstring == null)
             {

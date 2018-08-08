@@ -49,14 +49,24 @@ namespace Meetup.NetStandard.Tests
         public async Task ErrorResponseOnNotSuccess()
         {
             var message =new HttpResponseMessage(HttpStatusCode.InsufficientStorage);
-            await Assert.ThrowsAsync<MeetupException>(() => HttpClientExtensions.AsObject<object>(message, null));
+            await Assert.ThrowsAsync<MeetupException>(() => message.AsObject<object>(null));
         }
 
         [Fact]
         public async Task ErrorContentOnErrorJson()
         {
             var message = FakeHttpClient.MessageResponse(HttpStatusCode.InsufficientStorage,"Throttled");
-            var exception = await Assert.ThrowsAsync<MeetupException>(() => HttpClientExtensions.AsObject<object>(message, MeetupClient.SetupOptions(null,null)));
+            var exception = await Assert.ThrowsAsync<MeetupException>(() => message.AsObject<object>(MeetupClient.SetupOptions(null,null)));
+            Assert.Single(exception.Errors);
+        }
+
+        [Fact]
+        public async Task ErrorContentOnClientReturningError()
+        {
+            var message = FakeHttpClient.MessageResponse(HttpStatusCode.InsufficientStorage, "Throttled");
+            var client = new HttpClient(new ActionMessageHandler(req => message));
+            var response = await client.GetAsync("https://test.com");
+            var exception = await Assert.ThrowsAsync<MeetupException>(() => response.AsObject<object>(MeetupClient.SetupOptions(null, null)));
             Assert.Single(exception.Errors);
         }
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Meetup.NetStandard.Request.Location;
 
 namespace Meetup.NetStandard
 {
-    public interface IMeetupLocation
+    public enum AuthLevel
     {
-        IFindRequest Find();
+        None,
+        ApiKey,
+        OAuth2
     }
 }

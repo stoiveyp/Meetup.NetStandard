@@ -25,9 +25,9 @@ namespace Meetup.NetStandard.Tests
         public void ValidTokenCreatesClient()
         {
             var client = MeetupClient.WithApiToken(TestToken);
-            Assert.NotNull(client.Defaults.AddedQueryString);
-            Assert.Equal("true",client.Defaults.AddedQueryString["sign"]);
-            Assert.Equal(TestToken,client.Defaults.AddedQueryString["key"]);
+            Assert.NotNull(client.Options.AddedQueryString);
+            Assert.Equal("true",client.Options.AddedQueryString["sign"]);
+            Assert.Equal(TestToken,client.Options.AddedQueryString["key"]);
         }
 
         [Fact]
@@ -45,19 +45,19 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public void CustomSerializerWithOAuthTokenSetCorrectly()
         {
-            var defaults = new DefaultClientOptions
+            var defaults = new MeetupClientOptions
             {
                 CustomSerializer = new JsonSerializer()
             };
             var meetupClient = MeetupClient.WithOAuthToken(TestToken, defaults);
-            Assert.Equal(defaults,meetupClient.Defaults);
+            Assert.Equal(defaults,meetupClient.Options);
         }
 
         [Fact]
         public void ValidOAuthTokenCreatesClient()
         {
             var client = MeetupClient.WithOAuthToken(TestToken);
-            var header = client.Defaults.Client.DefaultRequestHeaders.Authorization;
+            var header = client.Options.Client.DefaultRequestHeaders.Authorization;
             Assert.Equal("Bearer",header.Scheme);
             Assert.Equal(TestToken,header.Parameter);
         }
@@ -66,9 +66,9 @@ namespace Meetup.NetStandard.Tests
         public void NullDefaultCreatesDefaults()
         {
             var meetupclient = new MeetupClient(null);
-            Assert.NotNull(meetupclient.Defaults);
-            Assert.NotNull(meetupclient.Defaults.CustomSerializer);
-            Assert.NotNull(meetupclient.Defaults.Client);
+            Assert.NotNull(meetupclient.Options);
+            Assert.NotNull(meetupclient.Options.CustomSerializer);
+            Assert.NotNull(meetupclient.Options.Client);
         }
     }
 }

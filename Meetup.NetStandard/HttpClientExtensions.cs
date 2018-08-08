@@ -9,7 +9,7 @@ namespace Meetup.NetStandard
 {
     public static class HttpClientExtensions
     {
-        public static async Task<MeetupResponse<T>> AsObject<T>(this HttpResponseMessage response, DefaultClientOptions options)
+        public static async Task<MeetupResponse<T>> AsObject<T>(this HttpResponseMessage response, MeetupClientOptions options)
         {
             if (response.Content == null)
             {

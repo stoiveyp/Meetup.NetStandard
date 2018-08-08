@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
@@ -12,12 +13,12 @@ namespace Meetup.NetStandard
     public class MeetupClient
     {
         public const string MeetupApiBaseAddress = "https://api.meetup.com";
-        public DefaultClientOptions Defaults { get; }
+        public MeetupClientOptions Options { get; }
 
         private IMeetupMeta _meta;
-        private IMeetupLocation _location;
+        private IMeetupGeo _geo;
 
-        public static MeetupClient WithApiToken(string token, DefaultClientOptions options = null)
+        public static MeetupClient WithApiToken(string token, MeetupClientOptions options = null)
         {
             if (string.IsNullOrWhiteSpace(token))
             {
@@ -27,10 +28,11 @@ namespace Meetup.NetStandard
             options = SetupOptions(options, null);
             options.AddedQueryString.Add("sign","true");
             options.AddedQueryString.Add("key",token);
+            options.Level = AuthLevel.ApiKey;
             return new MeetupClient(options);
         }
 
-        public static MeetupClient WithOAuthToken(string token, DefaultClientOptions options = null)
+        public static MeetupClient WithOAuthToken(string token, MeetupClientOptions options = null)
         {
             if (string.IsNullOrWhiteSpace(token))
             {
@@ -40,20 +42,22 @@ namespace Meetup.NetStandard
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            return new MeetupClient(SetupOptions(options,client));
+            options = SetupOptions(options, client);
+            options.Level = AuthLevel.OAuth2;
+            return new MeetupClient(options);
         }
 
-        public MeetupClient(DefaultClientOptions options)
+        public MeetupClient(MeetupClientOptions options)
         {
-            Defaults = SetupOptions(options,null);
+            Options = SetupOptions(options,null);
         }
 
-        public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Defaults));
-        public IMeetupLocation Location => _location ?? (_location = new LocationCalls(Defaults));
+        public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Options));
+        public IMeetupGeo Geo => _geo ?? (_geo = new GeoCalls(Options));
 
-        internal static DefaultClientOptions SetupOptions(DefaultClientOptions options, HttpClient client)
+        internal static MeetupClientOptions SetupOptions(MeetupClientOptions options, HttpClient client)
         {
-            options = options ?? new DefaultClientOptions();
+            options = options ?? new MeetupClientOptions();
             options.Client = client ?? options.Client ?? new HttpClient();
             options.CustomSerializer = options.CustomSerializer ?? JsonSerializer.CreateDefault();
             options.AddedQueryString = options.AddedQueryString ?? new Dictionary<string, string>();

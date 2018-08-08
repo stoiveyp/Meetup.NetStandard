@@ -8,9 +8,9 @@ namespace Meetup.NetStandard
 {
     internal class MetaCalls:IMeetupMeta
     {
-        private readonly DefaultClientOptions _options;
+        private readonly MeetupClientOptions _options;
 
-        internal MetaCalls(DefaultClientOptions options)
+        internal MetaCalls(MeetupClientOptions options)
         {
             _options = options;
         }

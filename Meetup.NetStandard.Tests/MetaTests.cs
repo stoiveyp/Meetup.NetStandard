@@ -20,7 +20,7 @@ namespace Meetup.NetStandard.Tests
         public async Task StatusCreatesCorrectCall()
         {
             var client = FakeHttpClient.AssertUrl("/status");
-            var defaults = new DefaultClientOptions
+            var defaults = new MeetupClientOptions
             {
                 Client = client
             };
@@ -31,7 +31,7 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public async Task StatusDeserialisesCorrectly()
         {
-            var defaults = new DefaultClientOptions
+            var defaults = new MeetupClientOptions
             {
                 Client = FakeHttpClient.AssertResponse("StatusResponse")
             };
