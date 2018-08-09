@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Meetup.NetStandard.Request.Geo
 {
-    public class FindLocationRequest
+    public class FindLocationRequest:MeetupRequest
     {
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
@@ -14,9 +11,9 @@ namespace Meetup.NetStandard.Request.Geo
         public int? Page { get; set; }
         public int? PageSize { get; set; }
 
-        public Dictionary<string, string> AsDictionary()
+        public override Dictionary<string, string> AsDictionary()
         {
-            var dictionary = new Dictionary<string, string>();
+            var dictionary = new Dictionary<string,string>();
             if (!string.IsNullOrWhiteSpace(Name))
             {
                 dictionary.Add("query",Name);

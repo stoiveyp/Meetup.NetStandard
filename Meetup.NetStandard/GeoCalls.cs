@@ -25,7 +25,7 @@ namespace Meetup.NetStandard
 
         public async Task<MeetupResponse<Location[]>> FindLocation(FindLocationRequest request)
         {
-            var response = await MeetupRequestMethods.GetAsync("/find/location", _options,request.AsDictionary());
+            var response = await MeetupRequestMethods.GetAsync("/find/location", _options,request);
             return await response.AsObject<Location[]>(_options);
         }
     }
