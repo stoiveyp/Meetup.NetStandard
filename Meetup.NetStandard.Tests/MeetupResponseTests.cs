@@ -83,6 +83,8 @@ namespace Meetup.NetStandard.Tests
             Assert.NotNull(meetup.Previous);
             Assert.NotNull(meetup.Next);
 
+            Assert.Equal("https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=0", meetup.Previous.Url);
+            Assert.Equal("https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=2", meetup.Next.Url);
         }
     }
 }
