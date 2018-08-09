@@ -1,0 +1,47 @@
+﻿[
+  {
+    "city": "London",
+    "country": "gb",
+    "localized_country_name": "United Kingdom",
+    "name_string": "London, Greater London, England, United Kingdom",
+    "zip": "E5 0ET",
+    "lat": 51.55,
+    "lon": -0.05
+  },
+  {
+    "city": "Greater London",
+    "country": "gb",
+    "localized_country_name": "United Kingdom",
+    "name_string": "Greater London, England, United Kingdom",
+    "zip": "N1 5ET",
+    "lat": 51.54,
+    "lon": -0.08
+  },
+  {
+    "city": "Stratford ",
+    "country": "gb",
+    "localized_country_name": "United Kingdom",
+    "name_string": "Stratford , England, United Kingdom",
+    "zip": "E15",
+    "lat": 51.54,
+    "lon": 0
+  },
+  {
+    "city": "Poplar",
+    "country": "gb",
+    "localized_country_name": "United Kingdom",
+    "name_string": "Poplar, United Kingdom",
+    "zip": "E14",
+    "lat": 51.51,
+    "lon": -0.02
+  },
+  {
+    "city": "Woodford Green",
+    "country": "gb",
+    "localized_country_name": "United Kingdom",
+    "name_string": "Woodford Green, Essex, England, United Kingdom",
+    "zip": "IG8 0AA",
+    "lat": 51.61,
+    "lon": 0.02
+  }
+]

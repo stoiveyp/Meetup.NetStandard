@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Response;
+using Meetup.NetStandard.Response.Meta;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
 
@@ -19,7 +20,7 @@ namespace Meetup.NetStandard.Tests
         public async Task StatusCreatesCorrectCall()
         {
             var client = FakeHttpClient.AssertUrl("/status");
-            var defaults = new DefaultClientOptions
+            var defaults = new MeetupClientOptions
             {
                 Client = client
             };
@@ -30,7 +31,7 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public async Task StatusDeserialisesCorrectly()
         {
-            var defaults = new DefaultClientOptions
+            var defaults = new MeetupClientOptions
             {
                 Client = FakeHttpClient.AssertResponse("StatusResponse")
             };

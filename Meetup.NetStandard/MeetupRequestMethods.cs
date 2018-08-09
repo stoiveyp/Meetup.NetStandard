@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
-using Meetup.NetStandard.Response;
+using Meetup.NetStandard.Request;
+using System;
 
 namespace Meetup.NetStandard
 {
@@ -11,26 +12,46 @@ namespace Meetup.NetStandard
     {
         public static async Task<HttpResponseMessage> GetAsync(
             string requestUri,
-            DefaultClientOptions options,
-            Dictionary<string,string> querystringParameters = null)
+            MeetupClientOptions options,
+            MeetupRequest request = null)
         {
-            var fullUri = $"{requestUri}{BuildQueryString(querystringParameters,options)}";
+            var fullUri = $"{requestUri}{BuildQueryString(request?.AsDictionary(),options)}";
             var message = new HttpRequestMessage(HttpMethod.Get, fullUri);
+            if(!string.IsNullOrWhiteSpace(request?.ContextEventId))
+            {
+                message.Headers.Add("X-Meta-Visit-Event", request.ContextEventId);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request?.ContextGroupName))
+            {
+                message.Headers.Add("X-Meta-Visit", System.Net.WebUtility.UrlEncode(request.ContextGroupName));
+            }
+
             var response = await options.Client.SendAsync(message);
             return response;
         }
 
-        private static string BuildQueryString(Dictionary<string, string> qstring, DefaultClientOptions options)
+        private static string BuildQueryString(Dictionary<string, string> qstring, MeetupClientOptions options)
         {
-            if (qstring == null)
+            if(qstring == null && options.AddedQueryString == null)
             {
                 return string.Empty;
             }
 
             var osb = new StringBuilder();
-            var first = true;
-            foreach (var item in options?.AddedQueryString == null 
-                ? qstring : qstring.Concat(options.AddedQueryString))
+            var added = AddTo(osb, qstring,true);
+            added = AddTo(osb, options.AddedQueryString, added);
+            return osb.ToString();
+        }
+
+        private static bool AddTo(StringBuilder osb, Dictionary<string, string> queryString, bool first)
+        {
+            if((queryString?.Count ?? 0) == 0)
+            {
+                return first;
+            }
+
+            foreach (var item in queryString)
             {
                 osb.Append(first ? "?" : "&");
 
@@ -39,8 +60,7 @@ namespace Meetup.NetStandard
                 osb.Append(System.Net.WebUtility.UrlEncode(item.Value));
                 first = false;
             }
-
-            return osb.ToString();
+            return first;
         }
     }
 }

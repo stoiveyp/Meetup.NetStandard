@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace Meetup.NetStandard.Response
+namespace Meetup.NetStandard.Response.Meta
 {
     public class Status
     {

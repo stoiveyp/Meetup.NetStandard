@@ -15,7 +15,14 @@ namespace Meetup.NetStandard.Tests.Helpers
         {
             return new FakeHttpClient(r =>
             {
-                Assert.Equal(requestUri,r.RequestUri.PathAndQuery);
+                var pathAndQuery = r.RequestUri.PathAndQuery;
+                var signPos = pathAndQuery.IndexOf("&sign=", StringComparison.InvariantCulture);
+                if (signPos > -1)
+                {
+                    pathAndQuery = pathAndQuery.Substring(0, signPos);
+                }
+
+                Assert.Equal(requestUri,pathAndQuery);
                 return new HttpResponseMessage();
             });
         }

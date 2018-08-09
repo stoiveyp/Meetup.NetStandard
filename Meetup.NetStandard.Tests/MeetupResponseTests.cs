@@ -49,16 +49,42 @@ namespace Meetup.NetStandard.Tests
         public async Task ErrorResponseOnNotSuccess()
         {
             var message =new HttpResponseMessage(HttpStatusCode.InsufficientStorage);
-            await Assert.ThrowsAsync<MeetupException>(() => HttpClientExtensions.AsObject<object>(message, null));
+            await Assert.ThrowsAsync<MeetupException>(() => message.AsObject<object>(null));
         }
 
         [Fact]
         public async Task ErrorContentOnErrorJson()
         {
             var message = FakeHttpClient.MessageResponse(HttpStatusCode.InsufficientStorage,"Throttled");
-            var exception = await Assert.ThrowsAsync<MeetupException>(() => HttpClientExtensions.AsObject<object>(message, MeetupClient.SetupOptions(null,null)));
+            var exception = await Assert.ThrowsAsync<MeetupException>(() => message.AsObject<object>(MeetupClient.SetupOptions(null,null)));
             Assert.Single(exception.Errors);
         }
 
+        [Fact]
+        public async Task ErrorContentOnClientReturningError()
+        {
+            var message = FakeHttpClient.MessageResponse(HttpStatusCode.InsufficientStorage, "Throttled");
+            var client = new HttpClient(new ActionMessageHandler(req => message));
+            var response = await client.GetAsync("https://test.com");
+            var exception = await Assert.ThrowsAsync<MeetupException>(() => response.AsObject<object>(MeetupClient.SetupOptions(null, null)));
+            Assert.Single(exception.Errors);
+        }
+
+        [Fact]
+        public void PaginationLinksWorkCorrectly()
+        {
+            var nextLink = "https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=2";
+            var prevLink = "https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=0";
+            var message = new HttpResponseMessage();
+            message.Headers.Add("Link", $"<{nextLink}>; rel=\"next\"");
+            message.Headers.Add("Link", $"<{prevLink}>; rel=\"prev\"");
+
+            var meetup = new MeetupResponse<object>(message, null);
+            Assert.NotNull(meetup.Previous);
+            Assert.NotNull(meetup.Next);
+
+            Assert.Equal("https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=0", meetup.Previous.Url);
+            Assert.Equal("https://api.meetup.com/find/locations?sign=true&photo-host=public&page=200&offset=2", meetup.Next.Url);
+        }
     }
 }
