@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Meetup.NetStandard.Request;
+using Meetup.NetStandard.Request.Venues;
 using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Venues;
 
@@ -23,6 +23,16 @@ namespace Meetup.NetStandard
             }
 
             return Find(new FindVenuesRequest { Text = text });
+        }
+
+        public Task<MeetupResponse<Venue[]>> Find(string text, VenueOrderBy orderBy, bool descending = false)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentNullException(nameof(text), "Text must be specified for a find venue call");
+            }
+
+            return Find(new FindVenuesRequest { Text = text,OrderBy=orderBy,Descending=descending });
         }
 
         public async Task<MeetupResponse<Venue[]>> Find(FindVenuesRequest request)

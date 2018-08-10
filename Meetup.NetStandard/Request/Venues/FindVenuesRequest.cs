@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Meetup.NetStandard.Request
+namespace Meetup.NetStandard.Request.Venues
 {
     public class FindVenuesRequest : PagedMeetupRequest
     {
@@ -12,14 +12,18 @@ namespace Meetup.NetStandard.Request
         public string Location { get; internal set; }
         public double? MilesRadius { get; internal set; }
         public string Zip { get; internal set; }
+        public VenueOrderBy? OrderBy { get; set; }
+        public bool Descending { get; set; }
 
         public override Dictionary<string, string> AsDictionary()
         {
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("text", Text);
-            dictionary.Add("fields", "taglist");
+            var dictionary = new Dictionary<string, string>
+            {
+                { "text", Text },
+                { "fields", "taglist" }
+            };
 
-            if(!string.IsNullOrWhiteSpace(Country))
+            if (!string.IsNullOrWhiteSpace(Country))
             {
                 dictionary.Add("country", Country);
             }
@@ -47,6 +51,16 @@ namespace Meetup.NetStandard.Request
             if (!string.IsNullOrWhiteSpace(Zip))
             {
                 dictionary.Add("zip", Zip);
+            }
+
+            if(OrderBy.HasValue)
+            {
+                dictionary.Add("order", OrderBy.ToString().ToLowerInvariant());
+            }
+
+            if(Descending)
+            {
+                dictionary.Add("desc", "true");
             }
 
             AddPagination(dictionary);

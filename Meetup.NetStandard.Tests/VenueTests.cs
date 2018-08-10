@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Meetup.NetStandard.Request;
+using Meetup.NetStandard.Request.Venues;
 using Meetup.NetStandard.Response.Venues;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
@@ -68,6 +68,23 @@ namespace Meetup.NetStandard.Tests
         }
 
         [Fact]
+        public async Task FindVenueOrderedNameGeneratesCorrectUrl()
+        {
+            var request = new FindVenuesRequest
+            {
+                Text = "rock city"
+            };
+
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/find/venues?text=rock+city&fields=taglist&order=rating")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Venues.Find("rock city",VenueOrderBy.Rating);
+        }
+
+        [Fact]
         public async Task FindVenueRequestGeneratesCorrectUrl()
         {
             var request = new FindVenuesRequest
@@ -78,12 +95,14 @@ namespace Meetup.NetStandard.Tests
                 Longitude = 20.5,
                 Location = "nottingham",
                 MilesRadius = 25.6,
-                Zip = "NG6"
+                Zip = "NG6",
+                Descending=true,
+                OrderBy=VenueOrderBy.Rating_Count
             };
 
             var options = new MeetupClientOptions
             {
-                Client = FakeHttpClient.AssertUrl("/find/venues?text=rock+city&fields=taglist&country=UK&lat=2.3&lon=20.5&location=nottingham&radius=25.6&zip=NG6")
+                Client = FakeHttpClient.AssertUrl("/find/venues?text=rock+city&fields=taglist&country=UK&lat=2.3&lon=20.5&location=nottingham&radius=25.6&zip=NG6&order=rating_count&desc=true")
             };
 
             var meetup = MeetupClient.WithApiToken("testToken", options);
