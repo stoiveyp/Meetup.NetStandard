@@ -108,5 +108,17 @@ namespace Meetup.NetStandard.Tests
             var meetup = MeetupClient.WithApiToken("testToken", options);
             await meetup.Venues.Find(request);
         }
+
+        [Fact]
+        public async Task RecommendedVenueEmptyGeneratesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/recommended/venues?fields=taglist")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Venues.Recommended();
+        }
     }
 }

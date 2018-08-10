@@ -44,5 +44,15 @@ namespace Meetup.NetStandard
             var response = await MeetupRequestMethods.GetAsync("/find/venues", _options, request);
             return await response.AsObject<Venue[]>(_options);
         }
+
+        public Task<MeetupResponse<Venue[]>> Recommended()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MeetupResponse<Venue[]>> Recommended(RecommendedVenuesRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
