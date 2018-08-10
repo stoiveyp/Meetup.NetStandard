@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Meetup.NetStandard.Request
 {
-    public class FindVenuesRequest : MeetupRequest
+    public class FindVenuesRequest : PagedMeetupRequest
     {
         public string Text { get; internal set; }
         public string Country { get; internal set; }
@@ -48,6 +48,8 @@ namespace Meetup.NetStandard.Request
             {
                 dictionary.Add("zip", Zip);
             }
+
+            AddPagination(dictionary);
 
             return dictionary;
         }
