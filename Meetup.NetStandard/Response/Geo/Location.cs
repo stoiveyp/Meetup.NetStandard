@@ -22,7 +22,7 @@ namespace Meetup.NetStandard.Response.Geo
         [JsonProperty("lat")]
         public double Latitude { get; set; }
 
-        [JsonProperty("long")]
+        [JsonProperty("lon")]
         public double Longitude { get; set; }
     }
 }

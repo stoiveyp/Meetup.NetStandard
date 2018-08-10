@@ -21,7 +21,7 @@ namespace Meetup.NetStandard.Request.Geo
 
             if (Longitude.HasValue)
             {
-                dictionary.Add("long", Longitude.Value.ToString(CultureInfo.InvariantCulture));
+                dictionary.Add("lon", Longitude.Value.ToString(CultureInfo.InvariantCulture));
             }
 
             if (Latitude.HasValue)

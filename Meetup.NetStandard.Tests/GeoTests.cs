@@ -32,7 +32,7 @@ namespace Meetup.NetStandard.Tests
 
             var options = new MeetupClientOptions
             {
-                Client = FakeHttpClient.AssertUrl("/find/location?query=bas&long=57.2&lat=-1.18&page=2&offset=1")
+                Client = FakeHttpClient.AssertUrl("/find/location?query=bas&lon=57.2&lat=-1.18&page=2&offset=1")
             };
 
             var meetup = MeetupClient.WithApiToken("testToken",options);
@@ -70,7 +70,7 @@ namespace Meetup.NetStandard.Tests
             Assert.Equal("Stratford , England, United Kingdom",location.FullName);
             Assert.Equal("E15",location.Zip);
             Assert.Equal(51.54,location.Latitude);
-            Assert.Equal(0,location.Longitude);
+            Assert.Equal(0.01,location.Longitude);
         }
     }
 }

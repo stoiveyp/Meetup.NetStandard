@@ -18,9 +18,6 @@ namespace Meetup.NetStandard
         public const string MeetupApiBaseAddress = "https://api.meetup.com";
         public MeetupClientOptions Options { get; }
 
-        private IMeetupMeta _meta;
-        private IMeetupGeo _geo;
-
         public static MeetupClient WithApiToken(string token, MeetupClientOptions options = null)
         {
             if (string.IsNullOrWhiteSpace(token))
@@ -29,8 +26,8 @@ namespace Meetup.NetStandard
             }
 
             options = SetupOptions(options, null);
-            options.AddedQueryString.Add("sign","true");
-            options.AddedQueryString.Add("key",token);
+            options.AddedQueryString.Add("sign", "true");
+            options.AddedQueryString.Add("key", token);
             options.Level = AuthLevel.ApiKey;
             return new MeetupClient(options);
         }
@@ -52,11 +49,16 @@ namespace Meetup.NetStandard
 
         public MeetupClient(MeetupClientOptions options)
         {
-            Options = SetupOptions(options,null);
+            Options = SetupOptions(options, null);
         }
+
+        private IMeetupMeta _meta;
+        private IMeetupGeo _geo;
+        private IMeetupVenues _venues;
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Options));
         public IMeetupGeo Geo => _geo ?? (_geo = new GeoCalls(Options));
+        public IMeetupVenues Venues => _venues ?? (_venues = new VenueCalls(Options));
 
         internal static MeetupClientOptions SetupOptions(MeetupClientOptions options, HttpClient client)
         {
