@@ -153,11 +153,56 @@ namespace Meetup.NetStandard.Tests
         {
             var options = new MeetupClientOptions
             {
-                Client = FakeHttpClient.AssertUrl("/tech-nottingham/venues")
+                Client = FakeHttpClient.AssertUrl("/tech-nottingham/venues?fields=taglist")
             };
 
             var meetup = MeetupClient.WithApiToken("testToken",options);
             await meetup.Venues.For("tech-nottingham");
         }
+
+        [Fact]
+        public async Task CreateForThrowsErrorOnEmptyGroup()
+        {
+            var meetup = MeetupClient.WithApiToken("testtoken");
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Venues.CreateFor(string.Empty,null));
+            Assert.Equal("groupName", exception.ParamName);
+        }
+
+        [Fact]
+        public async Task CreateForThrowsErrorOnNullVenue()
+        {
+            var meetup = MeetupClient.WithApiToken("testtoken");
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Venues.CreateFor("test", null));
+            Assert.Equal("venue", exception.ParamName);
+        }
+
+        [Fact]
+        public async Task CreateForGeneratesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/tech-nottingham/venues?fields=taglist", System.Net.Http.HttpMethod.Post)
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Venues.CreateFor("tech-nottingham",new Venue());
+        }
+
+        [Fact]
+        public async Task CreateForGeneratesCorrectBodyContent()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertContent<Venue>(v => {
+                    Assert.NotNull(v);
+                    Assert.Equal("random place", v.Name);
+                })
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Venues.CreateFor("tech-nottingham", new Venue{Name="random place"});
+        }
+
+        //TODO: Handle Conflict on CreateFor
     }
 }

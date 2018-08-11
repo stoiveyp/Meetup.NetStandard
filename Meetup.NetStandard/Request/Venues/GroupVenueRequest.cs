@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Meetup.NetStandard.Request.Venues
 {
     public class GroupVenueRequest:PagedMeetupRequest
@@ -13,5 +15,16 @@ namespace Meetup.NetStandard.Request.Venues
         }
 
         public string GroupName { get; }
+
+        public override Dictionary<string, string> AsDictionary()
+        {
+            var dictionary = new Dictionary<string,string>{
+                {"fields","taglist"}
+            };
+
+            AddPagination(dictionary);
+
+            return dictionary;
+        }
     }
 }

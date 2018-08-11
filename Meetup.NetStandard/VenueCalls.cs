@@ -7,7 +7,7 @@ using Meetup.NetStandard.Response.Venues;
 
 namespace Meetup.NetStandard
 {
-    public class VenueCalls:IMeetupVenues
+    public class VenueCalls : IMeetupVenues
     {
         private readonly MeetupClientOptions _options;
 
@@ -20,7 +20,7 @@ namespace Meetup.NetStandard
         {
             if (string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentNullException(nameof(text),"Text must be specified for a find venue call");
+                throw new ArgumentNullException(nameof(text), "Text must be specified for a find venue call");
             }
 
             return Find(new FindVenuesRequest(text));
@@ -33,19 +33,19 @@ namespace Meetup.NetStandard
                 throw new ArgumentNullException(nameof(text), "Text must be specified for a find venue call");
             }
 
-            return Find(new FindVenuesRequest(text){OrderBy=orderBy,Descending=descending });
+            return Find(new FindVenuesRequest(text) { OrderBy = orderBy, Descending = descending });
         }
 
         public Task<MeetupResponse<Venue[]>> Find(FindVenuesRequest request)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
-            if(!string.IsNullOrWhiteSpace(request.Country) && request.Country.Length != 2)
+            if (!string.IsNullOrWhiteSpace(request.Country) && request.Country.Length != 2)
             {
-                throw new ArgumentOutOfRangeException("Country","Country must be a 2 character code");
+                throw new ArgumentOutOfRangeException("Country", "Country must be a 2 character code");
             }
 
             return MeetupRequestMethods.GetWithRequestAsync<Venue[]>("/find/venues", _options, request);
@@ -73,7 +73,7 @@ namespace Meetup.NetStandard
 
         public Task<MeetupResponse<Venue[]>> For(string groupName)
         {
-            if(string.IsNullOrWhiteSpace(groupName))
+            if (string.IsNullOrWhiteSpace(groupName))
             {
                 throw new ArgumentNullException(nameof(groupName));
             }
@@ -82,12 +82,26 @@ namespace Meetup.NetStandard
 
         public Task<MeetupResponse<Venue[]>> For(GroupVenueRequest request)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
             return MeetupRequestMethods.GetWithRequestAsync<Venue[]>($"/{request.GroupName}/venues", _options, request);
+        }
+
+        public Task<MeetupResponse<Venue>> CreateFor(string groupName, Venue venue)
+        {
+            if (string.IsNullOrWhiteSpace(groupName))
+            {
+                throw new ArgumentNullException(nameof(groupName));
+            }
+            if (venue == null)
+            {
+                throw new ArgumentNullException(nameof(venue));
+            }
+
+            return MeetupRequestMethods.PostWithContentAsync<Venue, Venue>($"/{groupName}/venues?fields=taglist", _options, venue);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace Meetup.NetStandard
         Task<MeetupResponse<Venue[]>> Recommended(RecommendedVenuesRequest request);
         Task<MeetupResponse<Venue[]>> For(string groupName);
         Task<MeetupResponse<Venue[]>> For(GroupVenueRequest groupName);
+        Task<MeetupResponse<Venue>> CreateFor(string groupName, Venue venue);
     }
 }
