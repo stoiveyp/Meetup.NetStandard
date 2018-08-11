@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Meetup.NetStandard.Request;
 using Meetup.NetStandard.Request.Venues;
 using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Venues;
@@ -22,7 +23,7 @@ namespace Meetup.NetStandard
                 throw new ArgumentNullException(nameof(text),"Text must be specified for a find venue call");
             }
 
-            return Find(new FindVenuesRequest { Text = text });
+            return Find(new FindVenuesRequest(text));
         }
 
         public Task<MeetupResponse<Venue[]>> Find(string text, VenueOrderBy orderBy, bool descending = false)
@@ -32,27 +33,44 @@ namespace Meetup.NetStandard
                 throw new ArgumentNullException(nameof(text), "Text must be specified for a find venue call");
             }
 
-            return Find(new FindVenuesRequest { Text = text,OrderBy=orderBy,Descending=descending });
+            return Find(new FindVenuesRequest(text){OrderBy=orderBy,Descending=descending });
         }
 
         public async Task<MeetupResponse<Venue[]>> Find(FindVenuesRequest request)
         {
-            if(string.IsNullOrWhiteSpace(request.Text))
+            if(request == null)
             {
-                throw new InvalidOperationException("Text must be specified for a find venue call");
+                throw new ArgumentNullException(nameof(request));
             }
+
+            if(!string.IsNullOrWhiteSpace(request.Country) && request.Country.Length != 2)
+            {
+                throw new ArgumentOutOfRangeException("Country","Country must be a 2 character code");
+            }
+
             var response = await MeetupRequestMethods.GetAsync("/find/venues", _options, request);
             return await response.AsObject<Venue[]>(_options);
         }
 
         public Task<MeetupResponse<Venue[]>> Recommended()
         {
-            throw new NotImplementedException();
+            return Recommended(MeetupRequest.FieldsOnly("taglist"));
         }
 
         public Task<MeetupResponse<Venue[]>> Recommended(RecommendedVenuesRequest request)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(request?.Country) && request.Country.Length != 2)
+            {
+                throw new ArgumentOutOfRangeException("Country", "Country must be a 2 character code");
+            }
+
+            return Recommended(request ?? MeetupRequest.FieldsOnly("taglist"));
+        }
+
+        private async Task<MeetupResponse<Venue[]>> Recommended(MeetupRequest request)
+        {
+            var response = await MeetupRequestMethods.GetAsync("/recommended/venues", _options, request);
+            return await response.AsObject<Venue[]>(_options);
         }
     }
 }

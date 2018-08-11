@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Request.Venues;
+using Meetup.NetStandard.Request;
 using Meetup.NetStandard.Response.Venues;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
+using System.Diagnostics.Contracts;
 
 namespace Meetup.NetStandard.Tests
 {
@@ -47,16 +49,13 @@ namespace Meetup.NetStandard.Tests
         public async Task FindVenueRequestErrorsWhenBlank()
         {
             var meetup = MeetupClient.WithApiToken("testToken");
-            await Assert.ThrowsAsync<InvalidOperationException>(() => meetup.Venues.Find(new FindVenuesRequest()));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Venues.Find(new FindVenuesRequest(string.Empty)));
         }
 
         [Fact]
         public async Task FindVenueNameGeneratesCorrectUrl()
         {
-            var request = new FindVenuesRequest
-            {
-                Text = "rock city"
-            };
+            var request = new FindVenuesRequest("rock city");
 
             var options = new MeetupClientOptions
             {
@@ -70,10 +69,7 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public async Task FindVenueOrderedNameGeneratesCorrectUrl()
         {
-            var request = new FindVenuesRequest
-            {
-                Text = "rock city"
-            };
+            var request = new FindVenuesRequest("rock city");
 
             var options = new MeetupClientOptions
             {
@@ -87,9 +83,8 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public async Task FindVenueRequestGeneratesCorrectUrl()
         {
-            var request = new FindVenuesRequest
+            var request = new FindVenuesRequest("rock city")
             {
-                Text = "rock city",
                 Country = "UK",
                 Latitude = 2.3,
                 Longitude = 20.5,
@@ -119,6 +114,32 @@ namespace Meetup.NetStandard.Tests
 
             var meetup = MeetupClient.WithApiToken("testToken", options);
             await meetup.Venues.Recommended();
+        }
+
+        [Fact]
+        public async Task RecommendedVenueRequestGeneratesCorrectUrl()
+        {
+            var request = new RecommendedVenuesRequest { 
+                Categories = new []{"testcat1","testcat2"},
+                Country = "UK",
+                GroupIds = new[]{"testgroup1","testgroup2"},
+                GroupNames = new[]{"testname1","testname2"},
+                Latitude=56.7,
+                Longitude=-1.18,
+                Location="Nottingham",
+                MinimumGroups=5,
+                MilesRadius=30.5,
+                UsedBetween = new MeetupTimeSpan("1m","2m"),
+                Zip="NG120FF"
+            };
+
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/recommended/venues?fields=taglist&category=testcat1%2Ctestcat2&country=UK&group_id=testgroup1%2Ctestgroup2&group_urlname=testname1%2Ctestname2&lat=56.7&lon=-1.18&location=Nottingham&min_groups=5&radius=30.5&used_between=1m%2C2m&zip=NG120FF")
+            };
+
+            var meetup = MeetupClient.WithApiToken("tokenToken", options);
+            await meetup.Venues.Recommended(request);
         }
     }
 }

@@ -5,13 +5,23 @@ namespace Meetup.NetStandard.Request.Venues
 {
     public class FindVenuesRequest : PagedMeetupRequest
     {
-        public string Text { get; internal set; }
-        public string Country { get; internal set; }
-        public double? Latitude { get; internal set; }
-        public double? Longitude { get; internal set; }
-        public string Location { get; internal set; }
-        public double? MilesRadius { get; internal set; }
-        public string Zip { get; internal set; }
+        public FindVenuesRequest(string text)
+        {
+            if(string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            Text = text;
+        }
+
+        public string Text { get; set; }
+        public string Country { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public string Location { get; set; }
+        public double? MilesRadius { get; set; }
+        public string Zip { get; set; }
         public VenueOrderBy? OrderBy { get; set; }
         public bool Descending { get; set; }
 

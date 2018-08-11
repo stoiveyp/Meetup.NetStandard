@@ -16,8 +16,8 @@ namespace Meetup.NetStandard.Tests.Helpers
             return new FakeHttpClient(r =>
             {
                 var pathAndQuery = r.RequestUri.PathAndQuery;
-                var signPos = pathAndQuery.IndexOf("&sign=", StringComparison.InvariantCulture);
-                if (signPos > -1)
+                var signPos = pathAndQuery.IndexOf("sign=", StringComparison.InvariantCulture)-1;
+                if (signPos > 0)
                 {
                     pathAndQuery = pathAndQuery.Substring(0, signPos);
                 }
