@@ -1,0 +1,29 @@
+﻿[
+  {
+    "id": 108403,
+    "name": "Technology Startups",
+    "urlkey": "technology-startups",
+    "group_count": 10838,
+    "member_count": 6810839,
+    "description": "Meet local people interested in technology startups! Gather to network, share advice, and exchange ideas!",
+    "lang": "en_US"
+  },
+  {
+    "id": 10579,
+    "name": "Technology",
+    "urlkey": "technology",
+    "group_count": 6981,
+    "member_count": 4927597,
+    "description": "Meetup with other people interested in the internet and technology!",
+    "lang": "en_US"
+  },
+  {
+    "id": 7860,
+    "name": "Technical Writers",
+    "urlkey": "techwriter",
+    "group_count": 74,
+    "member_count": 19506,
+    "description": "Meet other local Technical Writers and Communicators to discuss issues, share information, and newtork.",
+    "lang": "en_US"
+  }
+]

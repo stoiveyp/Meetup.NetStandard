@@ -49,7 +49,7 @@ namespace Meetup.NetStandard.Tests
         }
 
         [Fact]
-        public async Task FindTopicUsesDataCorrectly()
+        public async Task FindTopicCategoriesUsesDataCorrectly()
         {
             var options = new MeetupClientOptions
             {
@@ -77,6 +77,51 @@ namespace Meetup.NetStandard.Tests
             Assert.Equal("https://secure.meetupstatic.com/photos/event/2/e/a/d/thumb_450131949.jpeg", topic.Photo.Thumb.ToString());
         }
 
+        [Fact]
+        public async Task FindTopicUsesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/find/topics?photo-host=public&query=tech")
+            };
 
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Topics.Find("tech");
+        }
+
+        [Fact]
+        public async Task FindTopicThrowsIfQueryIsEmpty()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/find/topics?photo-host=public&query=tech")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Topics.Find(string.Empty));
+        }
+
+        [Fact]
+        public async Task FindTopicUsesDataCorrectly()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertResponse("Topics")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            var response = await meetup.Topics.Find("tech");
+
+            Assert.Equal(3,response.Data.Length);
+            var topic = response.Data.Skip(1).First();
+
+            Assert.Equal(10579, topic.Id);
+            Assert.Equal("Technology",topic.Name);
+            Assert.Equal("technology",topic.UrlKey);
+            Assert.Equal("Meetup with other people interested in the internet and technology!",topic.Description);
+            Assert.Equal(6981,topic.GroupCount);
+            Assert.Equal(4927597,topic.MemberCount);
+            Assert.Equal("en_US",topic.LanguageCode);
+        }
     }
 }

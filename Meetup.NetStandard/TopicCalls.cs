@@ -27,5 +27,27 @@ namespace Meetup.NetStandard
                 "find/topic_categories",
                 _options, request);
         }
+
+        public Task<MeetupResponse<Topic[]>> Find(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
+            return Find(new FindTopicRequest(query));
+        }
+
+        public Task<MeetupResponse<Topic[]>> Find(FindTopicRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return MeetupRequestMethods.GetWithRequestAsync<Topic[]>(
+                "find/topics",
+                _options, request);
+        }
     }
 }

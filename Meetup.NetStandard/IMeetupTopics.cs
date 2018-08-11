@@ -10,5 +10,8 @@ namespace Meetup.NetStandard
     {
         Task<MeetupResponse<TopicCategory[]>> FindCategories();
         Task<MeetupResponse<TopicCategory[]>> FindCategories(FindTopicCategoriesRequest request);
+        Task<MeetupResponse<Topic[]>> Find(string query);
+        Task<MeetupResponse<Topic[]>> Find(FindTopicRequest request);
+
     }
 }
