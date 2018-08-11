@@ -55,10 +55,12 @@ namespace Meetup.NetStandard
         private IMeetupMeta _meta;
         private IMeetupGeo _geo;
         private IMeetupVenues _venues;
+        private IMeetupTopics _topics;
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Options));
         public IMeetupGeo Geo => _geo ?? (_geo = new GeoCalls(Options));
         public IMeetupVenues Venues => _venues ?? (_venues = new VenueCalls(Options));
+        public IMeetupTopics Topics => _topics ?? (_topics = new TopicCalls(Options));
 
         internal static MeetupClientOptions SetupOptions(MeetupClientOptions options, HttpClient client)
         {
