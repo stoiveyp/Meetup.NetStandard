@@ -13,4 +13,11 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MeetupVenue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Response\Venues\" />
+    <Folder Include="Request\Venues\" />
+  </ItemGroup>
 </Project>
