@@ -1,1 +1,47 @@
-﻿
+﻿[
+  {
+    "id": 242,
+    "shortname": "outdoors-adventure",
+    "name": "Outdoors & Adventure",
+    "sort_name": "Outdoors & Adventure",
+    "photo": {
+      "id": 450131943,
+      "highres_link": "https://secure.meetupstatic.com/photos/event/2/e/a/7/highres_450131943.jpeg",
+      "photo_link": "https://secure.meetupstatic.com/photos/event/2/e/a/7/600_450131943.jpeg",
+      "thumb_link": "https://secure.meetupstatic.com/photos/event/2/e/a/7/thumb_450131943.jpeg",
+      "type": "event",
+      "base_url": "https://secure.meetupstatic.com"
+    },
+    "category_ids": [ 3, 23 ]
+  },
+  {
+    "id": 292,
+    "shortname": "tech",
+    "name": "Tech",
+    "sort_name": "Tech",
+    "photo": {
+      "id": 450131949,
+      "highres_link": "https://secure.meetupstatic.com/photos/event/2/e/a/d/highres_450131949.jpeg",
+      "photo_link": "https://secure.meetupstatic.com/photos/event/2/e/a/d/600_450131949.jpeg",
+      "thumb_link": "https://secure.meetupstatic.com/photos/event/2/e/a/d/thumb_450131949.jpeg",
+      "type": "event",
+      "base_url": "https://secure.meetupstatic.com"
+    },
+    "category_ids": [ 34 ]
+  },
+  {
+    "id": 232,
+    "shortname": "parents-family",
+    "name": "Family",
+    "sort_name": "Family",
+    "photo": {
+      "id": 450131932,
+      "highres_link": "https://secure.meetupstatic.com/photos/event/2/e/9/c/highres_450131932.jpeg",
+      "photo_link": "https://secure.meetupstatic.com/photos/event/2/e/9/c/600_450131932.jpeg",
+      "thumb_link": "https://secure.meetupstatic.com/photos/event/2/e/9/c/thumb_450131932.jpeg",
+      "type": "event",
+      "base_url": "https://secure.meetupstatic.com"
+    },
+    "category_ids": [ 25 ]
+  }
+]

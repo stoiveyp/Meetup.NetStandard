@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Meetup.NetStandard.Request.Geo;
 using Meetup.NetStandard.Request.Topics;
 using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Topics;
@@ -15,19 +16,16 @@ namespace Meetup.NetStandard
             _options = options;
         }
 
-        public Task<MeetupResponse<TopicCategory[]>> Categories()
+        public Task<MeetupResponse<TopicCategory[]>> FindCategories()
         {
-            throw new NotImplementedException();
+            return FindCategories(new FindTopicCategoriesRequest());
         }
 
-        public Task<MeetupResponse<Topic[]>> Find(string query)
+        public Task<MeetupResponse<TopicCategory[]>> FindCategories(FindTopicCategoriesRequest request)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<MeetupResponse<Topic[]>> Find(FindTopicRequest request)
-        {
-            throw new NotImplementedException();
+            return MeetupRequestMethods.GetWithRequestAsync<TopicCategory[]>(
+                "find/topic_categories",
+                _options, request);
         }
     }
 }
