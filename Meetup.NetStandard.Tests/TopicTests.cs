@@ -123,5 +123,51 @@ namespace Meetup.NetStandard.Tests
             Assert.Equal(4927597,topic.MemberCount);
             Assert.Equal("en_US",topic.LanguageCode);
         }
+
+        [Fact]
+        public async Task RecommendedTopicThrowsIfQueryIsEmpty()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/find/topics?photo-host=public&query=tech")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Topics.RecommendedGroupTopic(string.Empty));
+            Assert.Equal("text",exception.ParamName);
+        }
+
+        [Fact]
+        public async Task RecommendedTopicThrowsIfGroupsListIsEmpty()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/find/topics?photo-host=public&query=tech")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Topics.RecommendedGroupTopic(new int[]{}));
+            Assert.Equal("basedOnTopics", exception.ParamName);
+        }
+
+        [Fact]
+        public async Task RecommendedTopicGeneratesCorrectUrl()
+        {
+            var request = new RecommendedGroupTopicRequest("tech")
+            {
+                LanguageCode="en_US",
+                OtherTopics = new []{45},
+                ExcludeTopics = new[] {123},
+                NumberOfResults=20
+            };
+
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/recommended/group_topics?photo-host=public&text=tech&other_topics=45&exclude_topics=123&lang=en_US&page=20")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Topics.RecommendedGroupTopic(request);
+        }
     }
 }

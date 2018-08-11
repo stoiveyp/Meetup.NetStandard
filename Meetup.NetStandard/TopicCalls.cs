@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Request.Geo;
 using Meetup.NetStandard.Request.Topics;
@@ -47,6 +49,38 @@ namespace Meetup.NetStandard
 
             return MeetupRequestMethods.GetWithRequestAsync<Topic[]>(
                 "find/topics",
+                _options, request);
+        }
+
+        public Task<MeetupResponse<Topic[]>> RecommendedGroupTopic(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            return RecommendedGroupTopic(new RecommendedGroupTopicRequest(text));
+        }
+
+        public Task<MeetupResponse<Topic[]>> RecommendedGroupTopic(IEnumerable<int> basedOnTopics)
+        {
+            var groupArray = basedOnTopics?.ToArray() ?? new int[] { };
+            if (!groupArray.Any())
+            {
+                throw new ArgumentNullException(nameof(basedOnTopics));
+            }
+
+            return RecommendedGroupTopic(new RecommendedGroupTopicRequest(groupArray));
+        }
+
+        public Task<MeetupResponse<Topic[]>> RecommendedGroupTopic(RecommendedGroupTopicRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return MeetupRequestMethods.GetWithRequestAsync<Topic[]>("recommended/group_topics",
                 _options, request);
         }
     }
