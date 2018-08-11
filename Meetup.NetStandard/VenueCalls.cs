@@ -36,7 +36,7 @@ namespace Meetup.NetStandard
             return Find(new FindVenuesRequest(text){OrderBy=orderBy,Descending=descending });
         }
 
-        public async Task<MeetupResponse<Venue[]>> Find(FindVenuesRequest request)
+        public Task<MeetupResponse<Venue[]>> Find(FindVenuesRequest request)
         {
             if(request == null)
             {
@@ -48,8 +48,7 @@ namespace Meetup.NetStandard
                 throw new ArgumentOutOfRangeException("Country","Country must be a 2 character code");
             }
 
-            var response = await MeetupRequestMethods.GetAsync("/find/venues", _options, request);
-            return await response.AsObject<Venue[]>(_options);
+            return MeetupRequestMethods.GetWithRequestAsync<Venue[]>("/find/venues", _options, request);
         }
 
         public Task<MeetupResponse<Venue[]>> Recommended()
@@ -67,10 +66,28 @@ namespace Meetup.NetStandard
             return Recommended(request ?? MeetupRequest.FieldsOnly("taglist"));
         }
 
-        private async Task<MeetupResponse<Venue[]>> Recommended(MeetupRequest request)
+        private Task<MeetupResponse<Venue[]>> Recommended(MeetupRequest request)
         {
-            var response = await MeetupRequestMethods.GetAsync("/recommended/venues", _options, request);
-            return await response.AsObject<Venue[]>(_options);
+            return MeetupRequestMethods.GetWithRequestAsync<Venue[]>("/recommended/venues", _options, request);
+        }
+
+        public Task<MeetupResponse<Venue[]>> For(string groupName)
+        {
+            if(string.IsNullOrWhiteSpace(groupName))
+            {
+                throw new ArgumentNullException(nameof(groupName));
+            }
+            return For(new GroupVenueRequest(groupName));
+        }
+
+        public Task<MeetupResponse<Venue[]>> For(GroupVenueRequest request)
+        {
+            if(request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return MeetupRequestMethods.GetWithRequestAsync<Venue[]>($"/{request.GroupName}/venues", _options, request);
         }
     }
 }

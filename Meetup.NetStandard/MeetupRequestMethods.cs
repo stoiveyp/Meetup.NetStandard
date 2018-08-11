@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using Meetup.NetStandard.Request;
 using System;
+using Meetup.NetStandard.Response;
 
 namespace Meetup.NetStandard
 {
@@ -29,6 +30,12 @@ namespace Meetup.NetStandard
 
             var response = await options.Client.SendAsync(message);
             return response;
+        }
+
+        public static async Task<MeetupResponse<T>> GetWithRequestAsync<T>(string requestUri, MeetupClientOptions options, MeetupRequest request)
+        {
+            var response = await GetAsync(requestUri, options, request);
+            return await response.AsObject<T>(options);
         }
 
         private static string BuildQueryString(Dictionary<string, string> qstring, MeetupClientOptions options)

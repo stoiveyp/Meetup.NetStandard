@@ -6,7 +6,6 @@ using Meetup.NetStandard.Request;
 using Meetup.NetStandard.Response.Venues;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
-using System.Diagnostics.Contracts;
 
 namespace Meetup.NetStandard.Tests
 {
@@ -140,6 +139,25 @@ namespace Meetup.NetStandard.Tests
 
             var meetup = MeetupClient.WithApiToken("tokenToken", options);
             await meetup.Venues.Recommended(request);
+        }
+
+        [Fact]
+        public async Task ForGroupThrowsErrorOnEmpty()
+        {
+            var meetup = MeetupClient.WithApiToken("testtoken");
+            await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Venues.For(string.Empty));
+        }
+
+        [Fact]
+        public async Task ForGroupGeneratesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/tech-nottingham/venues")
+            };
+
+            var meetup = MeetupClient.WithApiToken("testToken",options);
+            await meetup.Venues.For("tech-nottingham");
         }
     }
 }

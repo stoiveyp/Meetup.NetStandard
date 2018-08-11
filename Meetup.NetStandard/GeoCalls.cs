@@ -23,10 +23,9 @@ namespace Meetup.NetStandard
             return FindLocation(new FindLocationRequest {Longitude = longitude, Latitude = latitude});
         }
 
-        public async Task<MeetupResponse<Location[]>> FindLocation(FindLocationRequest request)
+        public Task<MeetupResponse<Location[]>> FindLocation(FindLocationRequest request)
         {
-            var response = await MeetupRequestMethods.GetAsync("/find/location", _options,request);
-            return await response.AsObject<Location[]>(_options);
+            return MeetupRequestMethods.GetWithRequestAsync<Location[]>("/find/location", _options,request);
         }
     }
 }

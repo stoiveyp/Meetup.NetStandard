@@ -9,6 +9,8 @@ namespace Meetup.NetStandard.Request
         public int? Page { get; set; }
         public int? PageSize { get; set; }
 
+
+
         protected void AddPagination(Dictionary<string, string> dictionary)
         {
             if (PageSize.HasValue)
