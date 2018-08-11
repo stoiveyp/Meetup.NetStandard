@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Meetup.NetStandard.Response.Venues
+namespace Meetup.NetStandard.Response
 {
     public enum VenueVisibility
     {
