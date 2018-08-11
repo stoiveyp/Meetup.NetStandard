@@ -45,7 +45,7 @@ namespace Meetup.NetStandard
 
             if (!string.IsNullOrWhiteSpace(request.Country) && request.Country.Length != 2)
             {
-                throw new ArgumentOutOfRangeException("Country", "Country must be a 2 character code");
+                throw new ArgumentOutOfRangeException(nameof(request), "Country must be a 2 character code");
             }
 
             return MeetupRequestMethods.GetWithRequestAsync<Venue[]>("/find/venues", _options, request);
@@ -60,7 +60,7 @@ namespace Meetup.NetStandard
         {
             if (!string.IsNullOrWhiteSpace(request?.Country) && request.Country.Length != 2)
             {
-                throw new ArgumentOutOfRangeException("Country", "Country must be a 2 character code");
+                throw new ArgumentOutOfRangeException(nameof(request), "Country must be a 2 character code");
             }
 
             return Recommended(request ?? MeetupRequest.FieldsOnly("taglist"));

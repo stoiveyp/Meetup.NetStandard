@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27924.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meetup.NetStandard", "Meetup.NetStandard\Meetup.NetStandard.csproj", "{64D6E3A8-379E-497F-9C73-63A2D0C240C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meetup.NetStandard", "Meetup.NetStandard\Meetup.NetStandard.csproj", "{64D6E3A8-379E-497F-9C73-63A2D0C240C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meetup.NetStandard.Tests", "Meetup.NetStandard.Tests\Meetup.NetStandard.Tests.csproj", "{EC7BEE3F-E0FC-4157-AE27-3EB0B85FFDB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meetup.NetStandard.Tests", "Meetup.NetStandard.Tests\Meetup.NetStandard.Tests.csproj", "{EC7BEE3F-E0FC-4157-AE27-3EB0B85FFDB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
