@@ -1,0 +1,45 @@
+﻿[
+  {
+    "created": 1532682526000,
+    "duration": 9000000,
+    "id": "253202050",
+    "name": "Tech Nottingham August 2018: Secure Signups and Visual Testing",
+    "status": "upcoming",
+    "time": 1534181400000,
+    "local_date": "2018-08-13",
+    "local_time": "18:30",
+    "updated": 1532682590000,
+    "utc_offset": 3600000,
+    "waitlist_count": 0,
+    "yes_rsvp_count": 84,
+    "venue": {
+      "id": 1365520,
+      "name": "Antenna",
+      "lat": 52.95594787597656,
+      "lon": -1.1427489519119263,
+      "repinned": false,
+      "address_1": "Beck Street",
+      "city": "Nottingham",
+      "country": "gb",
+      "localized_country_name": "United Kingdom",
+      "phone": "0115 993 2350"
+    },
+    "group": {
+      "created": 1398763027000,
+      "name": "Tech Nottingham",
+      "id": 14171002,
+      "join_mode": "open",
+      "lat": 52.959999084472656,
+      "lon": -1.1399999856948853,
+      "urlname": "Tech-Nottingham",
+      "who": "Techies",
+      "localized_location": "Nottingham, United Kingdom",
+      "region": "en_US",
+      "timezone": "Europe/London"
+    },
+    "link": "https://www.meetup.com/Tech-Nottingham/events/253202050/",
+    "description": "<p>-------------------------------------------<br/>NOTE THE CHANGE OF DATE!<br/>Tech Nottingham has now moved to the second Monday of each month<br/>-------------------------------------------</p> <p>Full event details: <a href=\"https://www.technottingham.com/events/tech-nottingham-august-2018\" class=\"linkified\">https://www.technottingham.com/events/tech-nottingham-august-2018</a></p> <p>-------------------------------------------</p> <p>This month we have two fantastic talks from Viv Richards (<a href=\"http://twitter.com/11vlr\" class=\"linkified\">http://twitter.com/11vlr</a>) and James Barker. Plus we've got free food and drinks provided at the event thanks to our sponsors Capital One, Cordius, Experian and MHR</p> <p>Everyone is welcome and there are no tickets required. Just turn up - it's free!</p> <p>-------------------------------------------</p> <p>Spot The Difference: Automating Visual Regression Testing<br/>by Viv Richards</p> <p>In this session we look at why we automate tests, the issue with just manually testing, common end to end automation pitfalls, a brief introduction to visual testing and finally a look at common issues with visual testing and ways to overcome them.</p> <p>Using interactive examples we will gain an understanding of why relying on just manual testing can become an issue and how too much end to end automation can have a negative impact. The audience will also learn what visual testing is, what tools are available, some of the common pitfalls of using visual testing as well as tips on ways to overcome them.</p> <p>About Viv</p> <p>Viv Richards is a senior test automation engineer, a blogger and a community bumble bee. In his spare time he enjoys teaching children to code as a CodeClub volunteer as well as bringing communities together to share skills and knowledge by organising local meet-up’s as well as organising South Wales largest agile and developer conference.</p> <p>-------------------------------------------</p> <p>Security Sins Of The Sign-Up Process</p> <p>by James Barker</p> <p>The sign-up process is one of the earliest interactions a user will have with a website. There is a lot of pressure to increase the effectiveness of this process by requiring minimal clicks, the fewest key strokes and being as simplistic as possible.</p> <p>However usability and security often have conflicting requirements and leaning too far towards usability can lead to vulnerabilities...</p> <p>In this talk we will take a look at seven examples of what not to do during the user sign up process. Each example leads to a vulnerability that could be exploited later on and explores why it occurred and how it could have been avoided.</p> <p>This isn't a technical deep dive into the security aspects of software development. Instead it focuses on how the design stage can lead to vulnerabilities and aims to show where neglecting security over user experience or not fully understanding requirements is just as insecure as badly written software.</p> <p>About James</p> <p>James Barker's programming adventures started out when he was 11, when he spent most of his time tinkering with DarkBasic games. Since the early days he's had a keen interest in how computers are hacked - and realised early on that hacking can be thought of as finding \"alternative and unexpected\" ways of using someone else's software.</p> <p>Throughout his career he's worked with many web apps and APIs and secretly enjoyed finding and fixing vulnerabilities in them. As a huge advocate of fully automated test suites, James is currently working as an automation engineer at Capital One.</p> <p>-------------------------------------------</p> <p>Full event details: <a href=\"https://www.technottingham.com/events/tech-nottingham-august-2018\" class=\"linkified\">https://www.technottingham.com/events/tech-nottingham-august-2018</a></p> ",
+    "how_to_find_us": "Antenna is on the corner of Beck Street and Huntingdon Street",
+    "visibility": "public"
+  }
+]

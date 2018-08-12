@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Request.Venues;
 using Meetup.NetStandard.Request;
+using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Venues;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;

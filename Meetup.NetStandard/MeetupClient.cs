@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Security;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Response;
-using Meetup.NetStandard.Response.Meta;
 using Newtonsoft.Json;
 
 [assembly:InternalsVisibleTo("Meetup.NetStandard.Tests")]
@@ -56,11 +54,13 @@ namespace Meetup.NetStandard
         private IMeetupGeo _geo;
         private IMeetupVenues _venues;
         private IMeetupTopics _topics;
+        private IMeetupEvents _events;
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Options));
         public IMeetupGeo Geo => _geo ?? (_geo = new GeoCalls(Options));
         public IMeetupVenues Venues => _venues ?? (_venues = new VenueCalls(Options));
         public IMeetupTopics Topics => _topics ?? (_topics = new TopicCalls(Options));
+        public IMeetupEvents Events => _events ?? (_events = new EventCalls(Options));
 
         internal static MeetupClientOptions SetupOptions(MeetupClientOptions options, HttpClient client)
         {
