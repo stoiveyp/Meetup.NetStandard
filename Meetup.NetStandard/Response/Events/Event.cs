@@ -11,7 +11,7 @@ namespace Meetup.NetStandard.Response.Events
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonProperty("created"),JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonProperty("created"),JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
         public DateTime Created { get; set; }
 
         [JsonProperty("name")]
@@ -23,7 +23,7 @@ namespace Meetup.NetStandard.Response.Events
         [JsonProperty("status")]
         public EventStatus Status { get; set; }
 
-        [JsonProperty("time"),JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonProperty("time"),JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("local_date")]
@@ -32,7 +32,7 @@ namespace Meetup.NetStandard.Response.Events
         [JsonProperty("local_time")]
         public string LocalTime { get; set; }
 
-        [JsonProperty("updated"),JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonProperty("updated"),JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
         public DateTime Updated { get; set; }
 
         [JsonProperty("utc_offset")]

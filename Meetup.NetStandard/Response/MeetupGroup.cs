@@ -8,7 +8,7 @@ namespace Meetup.NetStandard.Response
 {
     public class MeetupGroup
     {
-        [JsonProperty("created"), JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonProperty("created"), JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
         public DateTime Created { get; set; }
 
         [JsonProperty("name")]

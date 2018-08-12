@@ -22,12 +22,12 @@ namespace Meetup.NetStandard
                 throw new ArgumentNullException(nameof(groupName));
             }
 
-            throw new NotImplementedException();
+            return For(new GetEventsRequest(groupName));
         }
 
         public Task<MeetupResponse<Event[]>> For(GetEventsRequest request)
         {
-            throw new NotImplementedException();
+            return MeetupRequestMethods.GetWithRequestAsync<Event[]>($"{request.GroupName}/events", _options, request);
         }
     }
 }
