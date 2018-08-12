@@ -13,4 +13,9 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Request\Groups\" />
+    <Folder Include="Response\Groups\" />
+  </ItemGroup>
 </Project>
