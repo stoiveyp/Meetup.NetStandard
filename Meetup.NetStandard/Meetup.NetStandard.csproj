@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Meetup API client for .NET Standard</Description>
+    <PackageLicenseUrl>https://github.com/stoiveyp/Meetup.NetStandard/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/stoiveyp/Meetup.NetStandard</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/stoiveyp/Meetup.NetStandard</RepositoryUrl>
+    <PackageTags>Meetup</PackageTags>
+    <PackageReleaseNotes>Initial structure</PackageReleaseNotes>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
