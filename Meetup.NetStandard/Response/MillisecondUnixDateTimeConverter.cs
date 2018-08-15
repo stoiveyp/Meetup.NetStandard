@@ -97,32 +97,7 @@ namespace Meetup.NetStandard.Response
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 
         {
-
-            bool nullable = (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>));
-
-            if (reader.TokenType == JsonToken.Null)
-
-            {
-
-                if (!nullable)
-
-                {
-
-                    throw new JsonSerializationException($"Cannot convert null value to {objectType}.");
-
-                }
-
-
-
-                return null;
-
-            }
-
-
-
             long milliseconds;
-
-
 
             if (reader.TokenType == JsonToken.Integer)
 
@@ -164,11 +139,7 @@ namespace Meetup.NetStandard.Response
 
 
 
-                Type t = (nullable)
-
-                    ? Nullable.GetUnderlyingType(objectType)
-
-                    : objectType;
+                Type t = objectType;
 
                 if (t == typeof(DateTimeOffset))
 

@@ -25,7 +25,7 @@ namespace Meetup.NetStandard.Response
         private MeetupLink<T> ProcessLink(IEnumerable<string> links, string linkType)
         {
 
-            var link = links?.FirstOrDefault(l => l.EndsWith($"rel=\"{linkType}\"",StringComparison.InvariantCulture));
+            var link = links?.FirstOrDefault(l => l.EndsWith($"rel=\"{linkType}\"",StringComparison.Ordinal));
             var breaker = link?.IndexOf(';') ?? -1;
             if (breaker == -1)
             {

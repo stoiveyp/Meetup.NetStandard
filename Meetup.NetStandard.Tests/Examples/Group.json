@@ -1,0 +1,81 @@
+﻿{
+"id": 14171002,
+"name": "Tech Nottingham",
+"status": "active",
+"link": "https://www.meetup.com/Tech-Nottingham/",
+"urlname": "Tech-Nottingham",
+"description": "<p>Tech Nottingham is an entirely free monthly meetup for people working in software around Nottingham. Our aim is to build a local community of technical people in and around Nottingham working to share ideas, get better at what they do and improve Nottingham as a place to work in the tech industry. <br> <br> We welcome people at all levels and from all backgrounds; if you're interested in technology, we're interested in you. <br> <br> There's usually free drinks and food for attendees, and always an interesting talk, so come along - everybody's nice.&nbsp;</p>",
+"created": 1398763027000,
+"city": "Nottingham",
+"untranslated_city": "Nottingham",
+"country": "GB",
+"localized_country_name": "United Kingdom",
+"localized_location": "Nottingham, United Kingdom",
+"state": "J9",
+"join_mode": "open",
+"visibility": "public",
+"lat": 52.96,
+"lon": -1.14,
+"members": 2204,
+"organizer": {
+"id": 202648061,
+"name": "Emma Seward",
+"bio": "Tech Nottingham Director; Hack24, Nott Tuesday, Women in Tech Nottingham, Tech on Toast organiser; wildlife photographer, beekeeper and owner of Emma's Garden. Tweet me @MrsEmma @TechNottingham @HackTwentyFour @NottTuesday @WiT_Notts",
+"photo": {
+"id": 255323220,
+"highres_link": "https://secure.meetupstatic.com/photos/member/5/a/b/4/highres_255323220.jpeg",
+"photo_link": "https://secure.meetupstatic.com/photos/member/5/a/b/4/member_255323220.jpeg",
+"thumb_link": "https://secure.meetupstatic.com/photos/member/5/a/b/4/thumb_255323220.jpeg",
+"type": "member",
+"base_url": "https://secure.meetupstatic.com"
+}
+},
+"who": "Techies",
+"group_photo": {
+"id": 460984584,
+"highres_link": "https://secure.meetupstatic.com/photos/event/1/1/e/8/highres_460984584.jpeg",
+"photo_link": "https://secure.meetupstatic.com/photos/event/1/1/e/8/600_460984584.jpeg",
+"thumb_link": "https://secure.meetupstatic.com/photos/event/1/1/e/8/thumb_460984584.jpeg",
+"type": "event",
+"base_url": "https://secure.meetupstatic.com"
+},
+"key_photo": {
+"id": 458130682,
+"highres_link": "https://secure.meetupstatic.com/photos/event/7/7/d/a/highres_458130682.jpeg",
+"photo_link": "https://secure.meetupstatic.com/photos/event/7/7/d/a/600_458130682.jpeg",
+"thumb_link": "https://secure.meetupstatic.com/photos/event/7/7/d/a/thumb_458130682.jpeg",
+"type": "event",
+"base_url": "https://secure.meetupstatic.com"
+},
+"timezone": "Europe/London",
+"next_event": {
+"id": "253746593",
+"name": "Tech On Toast August 2018: Learning IoT With Nothing But Your Laptop",
+"yes_rsvp_count": 23,
+"time": 1534919400000,
+"utc_offset": 3600000
+},
+"category": {
+"id": 34,
+"name": "Tech",
+"shortname": "tech",
+"sort_name": "Tech"
+},
+"meta_category": {
+"id": 292,
+"shortname": "tech",
+"name": "Tech",
+"sort_name": "Tech",
+"photo": {
+"id": 450131949,
+"highres_link": "https://secure.meetupstatic.com/photos/event/2/e/a/d/highres_450131949.jpeg",
+"photo_link": "https://secure.meetupstatic.com/photos/event/2/e/a/d/600_450131949.jpeg",
+"thumb_link": "https://secure.meetupstatic.com/photos/event/2/e/a/d/thumb_450131949.jpeg",
+"type": "event",
+"base_url": "https://secure.meetupstatic.com"
+},
+"category_ids": [
+34
+]
+}
+}

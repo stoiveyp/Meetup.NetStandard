@@ -19,6 +19,9 @@
         <None Update="Examples\FindVenues.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Examples\Group.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Update="Examples\StatusResponse.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
