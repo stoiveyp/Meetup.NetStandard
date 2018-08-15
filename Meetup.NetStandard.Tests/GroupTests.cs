@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
 
@@ -33,6 +34,24 @@ namespace Meetup.NetStandard.Tests
             };
             var meetup = MeetupClient.WithApiToken("testToken",options);
             await meetup.Groups.Get("tech-nottingham");
+        }
+
+        [Fact]
+        public async Task GetGeneratesCorrectData()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertResponse("Group")
+            };
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            var response = await meetup.Groups.Get("tech-nottingham");
+            var data = response.Data;
+
+            Assert.Equal(14171002,data.Id);
+            Assert.Equal("Tech Nottingham",data.Name);
+            Assert.Equal(MeetupVisibility.Public,data.Visibility);
+            Assert.NotNull(data.Organizer);
+            Assert.Equal(202648061,data.Organizer.Id);
         }
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Meetup.NetStandard.Response.Events
+namespace Meetup.NetStandard.Response
 {
-    public enum EventVisibility
+    public enum MeetupVisibility
     {
         Public,
         Public_Limited,

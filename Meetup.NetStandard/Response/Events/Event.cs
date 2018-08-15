@@ -42,7 +42,7 @@ namespace Meetup.NetStandard.Response.Events
         public string Description { get; set; }
 
         [JsonProperty("visibility")]
-        public EventVisibility Visibility { get; set; }
+        public MeetupVisibility Visibility { get; set; }
 
         [JsonProperty("how_to_find_us")]
         public string HowToFindUs { get; set; }

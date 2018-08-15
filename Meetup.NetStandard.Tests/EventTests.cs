@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Request.Events;
 using Meetup.NetStandard.Request.Venues;
+using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Events;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
@@ -65,7 +66,7 @@ namespace Meetup.NetStandard.Tests
             Assert.Equal(9000000,eventData.DurationMilliseconds);
             Assert.NotNull(eventData.Group);
             Assert.Equal("Techies",eventData.Group.Who);
-            Assert.Equal(EventVisibility.Public,eventData.Visibility);
+            Assert.Equal(MeetupVisibility.Public,eventData.Visibility);
         }
 
 
