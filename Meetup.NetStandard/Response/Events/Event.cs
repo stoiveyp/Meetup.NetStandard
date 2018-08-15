@@ -6,25 +6,16 @@ using Newtonsoft.Json.Converters;
 
 namespace Meetup.NetStandard.Response.Events
 {
-    public class Event
+    public class Event:MeetupEvent
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
         [JsonProperty("created"),JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
         public DateTime Created { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
 
         [JsonProperty("duration")]
         public long DurationMilliseconds { get; set; }
 
         [JsonProperty("status")]
         public EventStatus Status { get; set; }
-
-        [JsonProperty("time"),JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
-        public DateTime Time { get; set; }
 
         [JsonProperty("local_date")]
         public string LocalDate { get; set; }
@@ -35,14 +26,8 @@ namespace Meetup.NetStandard.Response.Events
         [JsonProperty("updated"),JsonConverter(typeof(MillisecondUnixDateTimeConverter))]
         public DateTime Updated { get; set; }
 
-        [JsonProperty("utc_offset")]
-        public long UtcOffsetMilliseconds { get; set; }
-
         [JsonProperty("waitlist_count")]
         public int WaitlistCount { get; set; }
-
-        [JsonProperty("yes_rsvp_count")]
-        public int RSVPYesCount { get; set; }
 
         [JsonProperty("venue")]
         public EventVenue Venue { get; set; }
