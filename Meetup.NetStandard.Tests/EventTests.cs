@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Request.Events;
-using Meetup.NetStandard.Request.Venues;
 using Meetup.NetStandard.Response;
-using Meetup.NetStandard.Response.Events;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
-using EventStatus = Meetup.NetStandard.Request.Events.EventStatus;
 
 namespace Meetup.NetStandard.Tests
 {

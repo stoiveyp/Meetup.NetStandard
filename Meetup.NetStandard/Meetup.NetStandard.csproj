@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/stoiveyp/Meetup.NetStandard</PackageProjectUrl>
     <RepositoryUrl>https://github.com/stoiveyp/Meetup.NetStandard</RepositoryUrl>
     <PackageTags>Meetup</PackageTags>
-    <PackageReleaseNotes>Initial structure</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix issue with conflicting event status</PackageReleaseNotes>
     <Version>0.1.0</Version>
   </PropertyGroup>
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Meetup.NetStandard.Request.Events
+namespace Meetup.NetStandard
 {
     [Flags]
     public enum EventStatus
