@@ -4,13 +4,14 @@ using System.Text;
 
 namespace Meetup.NetStandard.Request.Events
 {
+    [Flags]
     public enum EventStatus
     {
-        Cancelled,
-        Draft,
-        Past,
-        Proposed,
-        Suggested,
-        Upcoming
+        Cancelled = 1,
+        Draft = 2,
+        Past = 4,
+        Proposed = 8,
+        Suggested = 16,
+        Upcoming = 32
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Meetup.NetStandard.Request.Events
@@ -51,9 +52,10 @@ namespace Meetup.NetStandard.Request.Events
                 dictionary.Add("scroll",ScrollTo.Value.ToString());
             }
 
-            if (Status.HasValue)
+            var stateString = GetStates(Status);
+            if (!string.IsNullOrWhiteSpace(stateString))
             {
-                dictionary.Add("status",Status.Value.ToString().ToLower());
+                dictionary.Add("status",stateString.ToLower());
             }
 
             if (Descending.HasValue)
@@ -63,6 +65,29 @@ namespace Meetup.NetStandard.Request.Events
 
 
             return dictionary;
+        }
+
+        private string GetStates(EventStatus? status)
+        {
+            if (!status.HasValue)
+            {
+                return string.Empty;
+            }
+
+            var osb = new StringBuilder();
+            foreach(var value in Enum.GetValues(typeof(EventStatus)).Cast<EventStatus>())
+            {
+                if ((status.Value & value) == value)
+                {
+                    if (osb.Length > 0)
+                    {
+                        osb.Append(",");
+                    }
+                    osb.Append(value.ToString().ToLowerInvariant());
+                }
+            }
+
+            return osb.ToString();
         }
     }
 }
