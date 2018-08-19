@@ -12,6 +12,7 @@ namespace Meetup.NetStandard.Request.Events
         public int? PageSize { get; set; }
         public EventScrollTo? ScrollTo { get; set; }
         public EventStatus? Status { get; set; }
+        public bool? Descending { get; set; }
 
         public GetEventsRequest(string groupName)
         {
@@ -54,6 +55,12 @@ namespace Meetup.NetStandard.Request.Events
             {
                 dictionary.Add("status",Status.Value.ToString().ToLower());
             }
+
+            if (Descending.HasValue)
+            {
+                dictionary.Add("desc",Descending.Value.ToString().ToLowerInvariant());
+            }
+
 
             return dictionary;
         }

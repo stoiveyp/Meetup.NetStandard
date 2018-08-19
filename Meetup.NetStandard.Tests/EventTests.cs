@@ -32,10 +32,11 @@ namespace Meetup.NetStandard.Tests
                 NoEarlierThan = new DateTime(2018, 01, 01).AddDays(1),
                 PageSize = 20,
                 ScrollTo = EventScrollTo.recent_past,
-                Status = EventStatus.Draft
+                Status = EventStatus.Draft,
+                Descending = true
             };
 
-            var querystring = "no_earlier_than=2018-01-02T00%3A00%3A00&no_later_than=2018-02-01T00%3A00%3A00&page=20&scroll=recent_past&status=draft";
+            var querystring = "no_earlier_than=2018-01-02T00%3A00%3A00&no_later_than=2018-02-01T00%3A00%3A00&page=20&scroll=recent_past&status=draft&desc=true";
             var options = new MeetupClientOptions
             {
                 Client = FakeHttpClient.AssertUrl("/tech-nottingham/events?photo-host=public&"+querystring)
