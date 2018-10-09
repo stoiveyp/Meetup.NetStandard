@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Meetup.NetStandard.Request.Geo;
 using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Geo;

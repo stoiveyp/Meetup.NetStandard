@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Meetup.NetStandard.Response;
 using Meetup.NetStandard.Response.Groups;
@@ -16,7 +15,6 @@ namespace Meetup.NetStandard
             _options = options;
         }
 
-
         public Task<MeetupResponse<Group>> Get(string groupName)
         {
             if (string.IsNullOrWhiteSpace(groupName))
@@ -25,6 +23,11 @@ namespace Meetup.NetStandard
             }
 
             return MeetupRequestMethods.GetWithRequestAsync<Group>($"/{groupName}", _options, null);
+        }
+
+        public Task<MeetupResponse<List<Group>>> Find()
+        {
+            return MeetupRequestMethods.GetWithRequestAsync<List<Group>>($"/find/groups", _options, null);
         }
     }
 }
