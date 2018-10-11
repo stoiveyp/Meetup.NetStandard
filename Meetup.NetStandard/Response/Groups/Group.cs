@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Meetup.NetStandard.Response.Topics;
+﻿using Meetup.NetStandard.Response.Topics;
 using Newtonsoft.Json;
 
 namespace Meetup.NetStandard.Response.Groups
 {
-    public class Group:MeetupGroup
+    public class Group : MeetupGroup
     {
         [JsonProperty("link")]
         public string Link { get; set; }
@@ -47,6 +44,7 @@ namespace Meetup.NetStandard.Response.Groups
         [JsonProperty("meta_categpry")]
         public TopicCategory MetaCategory { get; set; }
 
-
+        [JsonProperty("members")]
+        public int Members { get; set; }
     }
 }
