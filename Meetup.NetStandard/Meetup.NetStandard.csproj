@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/stoiveyp/Meetup.NetStandard</PackageProjectUrl>
     <RepositoryUrl>https://github.com/stoiveyp/Meetup.NetStandard</RepositoryUrl>
     <PackageTags>Meetup</PackageTags>
-    <PackageReleaseNotes>Fix issue with conflicting event status</PackageReleaseNotes>
+    <PackageReleaseNotes>Addition of Groups.Find (thanks Paul!)</PackageReleaseNotes>
     <Version>0.1.0</Version>
   </PropertyGroup>
 
