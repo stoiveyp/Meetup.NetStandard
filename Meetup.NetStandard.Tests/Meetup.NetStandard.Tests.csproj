@@ -22,6 +22,9 @@
         <None Update="Examples\Group.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Examples\Rsvps.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Update="Examples\StatusResponse.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

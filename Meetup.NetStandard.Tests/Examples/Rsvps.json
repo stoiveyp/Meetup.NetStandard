@@ -1,0 +1,60 @@
+[
+  {
+    "created": 1547550596000,
+    "updated": 1547550596000,
+    "response": "yes",
+    "guests": 0,
+    "event": {
+      "id": "258091947",
+      "name": "Tech Nottingham February 2019: Lightning Talks!",
+      "yes_rsvp_count": 0,
+      "time": 1549909800000,
+      "utc_offset": 0
+    },
+    "group": {
+      "id": 14171002,
+      "urlname": "Tech-Nottingham",
+      "name": "Tech Nottingham",
+      "status": "active",
+      "who": "Techies",
+      "members": 2450,
+      "join_mode": "open",
+      "localized_location": "Nottingham, United Kingdom",
+      "group_photo": {
+        "id": 460984584,
+        "highres_link": "https://secure.meetupstatic.com/photos/event/1/1/e/8/highres_460984584.jpeg",
+        "photo_link": "https://secure.meetupstatic.com/photos/event/1/1/e/8/600_460984584.jpeg",
+        "thumb_link": "https://secure.meetupstatic.com/photos/event/1/1/e/8/thumb_460984584.jpeg",
+        "type": "event",
+        "base_url": "https://secure.meetupstatic.com"
+      }
+    },
+    "member": {
+      "id": 13691710,
+      "name": "Han Solo",
+      "bio": "Organiser of Tech Nottingham, Nott Tuesday, Tech on Toast and Hack24",
+      "photo": {
+        "id": 260518210,
+        "highres_link": "https://secure.meetupstatic.com/photos/member/e/3/6/2/highres_260518210.jpeg",
+        "photo_link": "https://secure.meetupstatic.com/photos/member/e/3/6/2/member_260518210.jpeg",
+        "thumb_link": "https://secure.meetupstatic.com/photos/member/e/3/6/2/thumb_260518210.jpeg",
+        "type": "member",
+        "base_url": "https://secure.meetupstatic.com"
+      },
+      "role": "coorganizer",
+      "event_context": { "host": true }
+    },
+    "venue": {
+      "id": 1365520,
+      "name": "Antenna",
+      "lat": 52.95594787597656,
+      "lon": -1.1427489519119263,
+      "repinned": true,
+      "address_1": "Beck Street",
+      "city": "Nottingham",
+      "country": "gb",
+      "localized_country_name": "United Kingdom",
+      "phone": "0115 993 2350"
+    }
+  }
+]
