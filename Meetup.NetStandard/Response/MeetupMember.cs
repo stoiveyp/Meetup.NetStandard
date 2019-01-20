@@ -14,6 +14,6 @@ namespace Meetup.NetStandard.Response
         public string Name { get; set; }
 
         [JsonProperty("photo")]
-        public MeetupPhoto Time { get; set; }
+        public MeetupPhoto Photo { get; set; }
     }
 }

@@ -54,6 +54,7 @@ namespace Meetup.NetStandard.Tests
             var rsvpData = response.Data.First();
             Assert.Equal("yes",rsvpData.Response);
             Assert.Equal("coorganizer", rsvpData.Member.Role);
+            Assert.Equal(460984584, rsvpData.Group.GroupPhoto.Id);
         }
 
 
