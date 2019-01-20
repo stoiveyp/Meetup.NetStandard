@@ -40,5 +40,8 @@ namespace Meetup.NetStandard.Response
 
         [JsonProperty("timezone")]
         public string TimeZone { get; set; }
+
+        [JsonExtensionData]
+        public Dictionary<string,object> ExtraFields { get; set; } 
     }
 }

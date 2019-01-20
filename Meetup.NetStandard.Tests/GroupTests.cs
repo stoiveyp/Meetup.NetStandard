@@ -37,6 +37,17 @@ namespace Meetup.NetStandard.Tests
         }
 
         [Fact]
+        public async Task GetWithFieldsGeneratesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/tech-nottingham?fields=plain_text_no_images_description")
+            };
+            var meetup = MeetupClient.WithApiToken("testToken", options);
+            await meetup.Groups.Get("tech-nottingham",new []{ "plain_text_no_images_description" });
+        }
+
+        [Fact]
         public async Task GetGeneratesCorrectData()
         {
             var options = new MeetupClientOptions

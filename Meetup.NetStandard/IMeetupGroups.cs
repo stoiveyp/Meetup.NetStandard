@@ -9,6 +9,7 @@ namespace Meetup.NetStandard
     public interface IMeetupGroups
     {
         Task<MeetupResponse<Group>> Get(string groupName);
+        Task<MeetupResponse<Group>> Get(string groupName, string[] extraFields);
         Task<MeetupResponse<List<Group>>> Find();
     }
 }
