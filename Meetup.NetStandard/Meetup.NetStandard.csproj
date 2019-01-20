@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/stoiveyp/Meetup.NetStandard</PackageProjectUrl>
     <RepositoryUrl>https://github.com/stoiveyp/Meetup.NetStandard</RepositoryUrl>
     <PackageTags>Meetup</PackageTags>
-    <PackageReleaseNotes>Support for RSVP calls added (thank you Benjamin!)</PackageReleaseNotes>
+    <PackageReleaseNotes>Add extra field support to group calls</PackageReleaseNotes>
     <Version>0.1.0</Version>
   </PropertyGroup>
 

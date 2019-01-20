@@ -20,6 +20,11 @@ namespace Meetup.NetStandard.Request
             return _dictionary ?? new Dictionary<string,string>();
         }
 
+        public static MeetupRequest FieldsOnly(string[] fields)
+        {
+            return new MeetupRequest(new Dictionary<string, string> { { "fields", string.Join(",",fields) } });
+        }
+
         public static MeetupRequest FieldsOnly(string fields)
         {
             return new MeetupRequest(new Dictionary<string,string>{{ "fields", fields }});
