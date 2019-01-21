@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace Meetup.NetStandard.Response.Rsvps
 {
-    public class RsvpGroup:MeetupGroup
+    public class RsvpGroup:MeetupGroupBase
     {
+        [JsonProperty("members")]
+        public int Members { get; set; }
+
+        [JsonProperty("group_photo")]
+        public MeetupPhoto GroupPhoto { get; set; }
     }
 }
