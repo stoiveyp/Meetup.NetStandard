@@ -8,7 +8,9 @@
     <PackageProjectUrl>https://github.com/stoiveyp/Meetup.NetStandard</PackageProjectUrl>
     <RepositoryUrl>https://github.com/stoiveyp/Meetup.NetStandard</RepositoryUrl>
     <PackageTags>Meetup</PackageTags>
-    <PackageReleaseNotes>Add extra field support to group calls</PackageReleaseNotes>
+    <PackageReleaseNotes>- Update to group structure
+- Fix in MeetupMember
+(thanks Ben!)</PackageReleaseNotes>
     <Version>0.1.0</Version>
   </PropertyGroup>
 
