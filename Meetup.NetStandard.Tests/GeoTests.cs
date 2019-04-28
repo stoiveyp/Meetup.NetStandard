@@ -35,7 +35,7 @@ namespace Meetup.NetStandard.Tests
                 Client = FakeHttpClient.AssertUrl("/find/location?query=bas&lon=57.2&lat=-1.18&page=2&offset=1")
             };
 
-            var meetup = MeetupClient.WithApiToken("testToken",options);
+            var meetup = MeetupClient.WithOAuthToken("testToken",options);
             await meetup.Geo.FindLocation(request);
         }
 

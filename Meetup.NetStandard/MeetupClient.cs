@@ -16,6 +16,7 @@ namespace Meetup.NetStandard
         public const string MeetupApiBaseAddress = "https://api.meetup.com";
         public MeetupClientOptions Options { get; }
 
+        [Obsolete("Meetup is stopping support for API Tokens",false)]
         public static MeetupClient WithApiToken(string token, MeetupClientOptions options = null)
         {
             if (string.IsNullOrWhiteSpace(token))
@@ -37,7 +38,7 @@ namespace Meetup.NetStandard
                 throw new ArgumentException("No token specified", nameof(token));
             }
 
-            var client = new HttpClient();
+            var client = options?.Client ?? new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             options = SetupOptions(options, client);
@@ -58,6 +59,7 @@ namespace Meetup.NetStandard
         private IMeetupRsvps _rsvps;
         private IMeetupGroups _groups;
         private IMeetupProfiles _profiles;
+        private IMeetupPhotos _photos;
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Options));
         public IMeetupGeo Geo => _geo ?? (_geo = new GeoCalls(Options));
@@ -67,6 +69,7 @@ namespace Meetup.NetStandard
         public IMeetupRsvps Rsvps => _rsvps ?? (_rsvps = new RsvpCalls(Options));
         public IMeetupGroups Groups => _groups ?? (_groups = new GroupCalls(Options));
         public IMeetupProfiles Profiles => _profiles ?? (_profiles = new ProfileCalls(Options));
+        public IMeetupPhotos Photos => _photos ?? (_photos = new PhotosCalls(Options));
 
         internal static MeetupClientOptions SetupOptions(MeetupClientOptions options, HttpClient client)
         {

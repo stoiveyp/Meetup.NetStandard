@@ -46,6 +46,27 @@ namespace Meetup.NetStandard
             return response;
         }
 
+        internal static async Task<HttpResponseMessage> PostMultipartAsync(string requestUri, MeetupClientOptions options,
+            MeetupFileRequest request)
+        {
+            var fullUri = $"{requestUri}{BuildQueryString(new Dictionary<string, string>(), options)}";
+            var formpost = new MultipartFormDataContent();
+
+            foreach (var kvp in request.AsDictionary())
+            {
+                formpost.Add(new StringContent(kvp.Value,Encoding.UTF32),kvp.Key);
+            }
+
+            foreach(var fvp in request.GetFiles())
+            {
+                formpost.Add(new StreamContent(fvp.Value),fvp.Key);
+            }
+
+            var message = new HttpRequestMessage(HttpMethod.Post, fullUri) {Content = formpost};
+            var response = await options.Client.SendAsync(message);
+            return response;
+        }
+
         internal static Task<MeetupResponse<T>> GetAsync<T>(string requestUri, MeetupClientOptions options)
         {
             return GetWithRequestAsync<T>(requestUri, options, null);
@@ -54,6 +75,13 @@ namespace Meetup.NetStandard
         internal static async Task<MeetupResponse<T>> GetWithRequestAsync<T>(string requestUri, MeetupClientOptions options, MeetupRequest request)
         {
             var response = await GetAsync(requestUri, options, request);
+            return await response.AsObject<T>(options);
+        }
+
+        internal static async Task<MeetupResponse<T>> PostWithFilesAsync<T>(string requestUri,
+            MeetupClientOptions options, MeetupFileRequest request)
+        {
+            var response = await PostMultipartAsync(requestUri, options, request);
             return await response.AsObject<T>(options);
         }
 
