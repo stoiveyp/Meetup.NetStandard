@@ -57,6 +57,7 @@ namespace Meetup.NetStandard
         private IMeetupEvents _events;
         private IMeetupRsvps _rsvps;
         private IMeetupGroups _groups;
+        private IMeetupProfiles _profiles;
 
         public IMeetupMeta Meta => _meta ?? (_meta = new MetaCalls(Options));
         public IMeetupGeo Geo => _geo ?? (_geo = new GeoCalls(Options));
@@ -65,6 +66,7 @@ namespace Meetup.NetStandard
         public IMeetupEvents Events => _events ?? (_events = new EventCalls(Options));
         public IMeetupRsvps Rsvps => _rsvps ?? (_rsvps = new RsvpCalls(Options));
         public IMeetupGroups Groups => _groups ?? (_groups = new GroupCalls(Options));
+        public IMeetupProfiles Profiles => _profiles ?? (_profiles = new ProfileCalls(Options));
 
         internal static MeetupClientOptions SetupOptions(MeetupClientOptions options, HttpClient client)
         {

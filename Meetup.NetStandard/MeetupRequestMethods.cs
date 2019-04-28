@@ -11,6 +11,7 @@ namespace Meetup.NetStandard
 {
     internal static class MeetupRequestMethods
     {
+
         internal static async Task<HttpResponseMessage> GetAsync(
             string requestUri,
             MeetupClientOptions options,
@@ -43,6 +44,11 @@ namespace Meetup.NetStandard
 
             var response = await options.Client.SendAsync(message);
             return response;
+        }
+
+        internal static Task<MeetupResponse<T>> GetAsync<T>(string requestUri, MeetupClientOptions options)
+        {
+            return GetWithRequestAsync<T>(requestUri, options, null);
         }
 
         internal static async Task<MeetupResponse<T>> GetWithRequestAsync<T>(string requestUri, MeetupClientOptions options, MeetupRequest request)

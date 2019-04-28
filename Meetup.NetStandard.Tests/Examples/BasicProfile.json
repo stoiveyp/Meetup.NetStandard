@@ -1,0 +1,15 @@
+{
+  "id": 123456789,
+  "name": "Steven Pears",
+  "email": "testacount@domain.com",
+  "bio": "Geek, gamer, programmer - mainly .NET but I just enjoy learning what I don't know.",
+  "status": "active",
+  "joined": 1434017237000,
+  "city": "CityX",
+  "country": "gb",
+  "localized_country_name": "United Kingdom",
+  "state": "J9",
+  "lat": -5.0,
+  "lon": -5.0,
+  "is_pro_admin": false
+}

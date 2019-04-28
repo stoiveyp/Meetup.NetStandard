@@ -13,7 +13,7 @@ namespace Meetup.NetStandard.Response.Groups
         [JsonProperty("bio")]
         public string Bio { get; set; }
 
-        [JsonProperty("phoo")]
+        [JsonProperty("photo")]
         public MeetupPhoto Photo { get; set; }
     }
 }
