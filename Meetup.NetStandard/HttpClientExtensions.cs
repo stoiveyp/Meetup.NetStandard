@@ -11,11 +11,16 @@ namespace Meetup.NetStandard
     {
         public static async Task<MeetupResponse<T>> AsObject<T>(this HttpResponseMessage response, MeetupClientOptions options)
         {
+            var raw = await AsRawObject<T>(response, options);
+            return new MeetupResponse<T>(response, raw);
+        }
+        public static async Task<T> AsRawObject<T>(this HttpResponseMessage response, MeetupClientOptions options)
+        {
             if (response.Content == null)
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return default(MeetupResponse<T>);
+                    return default(T);
                 }
                 throw new MeetupException(response.StatusCode);
             }
@@ -26,7 +31,7 @@ namespace Meetup.NetStandard
                 if (response.IsSuccessStatusCode)
                 {
                     var objectContent = options.CustomSerializer.Deserialize<T>(reader);
-                    return new MeetupResponse<T>(response, objectContent);
+                    return objectContent;
                 }
 
                 var errorContent = options.CustomSerializer.Deserialize<MeetupErrorContainer>(reader);

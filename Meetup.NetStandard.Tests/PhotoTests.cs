@@ -32,7 +32,7 @@ namespace Meetup.NetStandard.Tests
             )};
 
             var meetup = MeetupClient.WithOAuthToken(TestToken,options);
-            await meetup.Photos.Update(new UpdatePhotoRequest(memStream));
+            await meetup.Photos.Update(new UpdatePhotoRequest(memStream,"test.jpg"));
         }
     }
 }

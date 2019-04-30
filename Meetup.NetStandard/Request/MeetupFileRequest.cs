@@ -7,6 +7,6 @@ namespace Meetup.NetStandard.Request
 {
     public abstract class MeetupFileRequest:MeetupRequest
     {
-        public abstract IEnumerable<KeyValuePair<string, Stream>> GetFiles();
+        public abstract IEnumerable<KeyValuePair<string, Tuple<Stream,string>>> GetFiles();
     }
 }

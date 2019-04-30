@@ -52,14 +52,14 @@ namespace Meetup.NetStandard
             var fullUri = $"{requestUri}{BuildQueryString(new Dictionary<string, string>(), options)}";
             var formpost = new MultipartFormDataContent();
 
+            foreach (var fvp in request.GetFiles())
+            {
+                formpost.Add(new StreamContent(fvp.Value.Item1), fvp.Key,fvp.Value.Item2);
+            }
+
             foreach (var kvp in request.AsDictionary())
             {
                 formpost.Add(new StringContent(kvp.Value,Encoding.UTF32),kvp.Key);
-            }
-
-            foreach(var fvp in request.GetFiles())
-            {
-                formpost.Add(new StreamContent(fvp.Value),fvp.Key);
             }
 
             var message = new HttpRequestMessage(HttpMethod.Post, fullUri) {Content = formpost};
@@ -78,11 +78,11 @@ namespace Meetup.NetStandard
             return await response.AsObject<T>(options);
         }
 
-        internal static async Task<MeetupResponse<T>> PostWithFilesAsync<T>(string requestUri,
+        internal static async Task<T> PostWithFilesAsync<T>(string requestUri,
             MeetupClientOptions options, MeetupFileRequest request)
         {
             var response = await PostMultipartAsync(requestUri, options, request);
-            return await response.AsObject<T>(options);
+            return await response.AsRawObject<T>(options);
         }
 
         internal static async Task<MeetupResponse<TResponse>> PostWithContentAsync<TContent, TResponse>(string requestUri, MeetupClientOptions options, TContent content)

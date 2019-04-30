@@ -9,17 +9,20 @@ namespace Meetup.NetStandard.Request.Photos
     {
         public Stream Photo { get; }
 
+        private string PhotoFilename { get; }
+
         public bool? SetAsMain { get; set; }
 
         public bool? SyncGroupPhotos { get; set; }
-        public UpdatePhotoRequest(Stream photo)
+        public UpdatePhotoRequest(Stream photo, string filename)
         {
             Photo = photo;
+            PhotoFilename = filename;
         }
 
-        public override IEnumerable<KeyValuePair<string, Stream>> GetFiles()
+        public override IEnumerable<KeyValuePair<string, Tuple<Stream,string>>> GetFiles()
         {
-            yield return new KeyValuePair<string, Stream>("photo", Photo);
+            yield return new KeyValuePair<string, Tuple<Stream,string>>("photo", Tuple.Create(Photo,PhotoFilename));
         }
 
         public override Dictionary<string, string> AsDictionary()

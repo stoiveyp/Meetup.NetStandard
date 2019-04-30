@@ -13,7 +13,7 @@ namespace Meetup.NetStandard
             _options = options;
         }
 
-        public Task<MeetupResponse<MeetupPhoto>> Update(UpdatePhotoRequest request)
+        public Task<MeetupPhoto> Update(UpdatePhotoRequest request)
         {
             return MeetupRequestMethods.PostWithFilesAsync<MeetupPhoto>("/members/self/photos", _options, request);
         }

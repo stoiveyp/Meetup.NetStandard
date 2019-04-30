@@ -7,6 +7,6 @@ namespace Meetup.NetStandard
 {
     public interface IMeetupPhotos
     {
-        Task<MeetupResponse<MeetupPhoto>> Update(UpdatePhotoRequest request);
+        Task<MeetupPhoto> Update(UpdatePhotoRequest request);
     }
 }
