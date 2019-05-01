@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using Meetup.NetStandard.Request.Profiles;
+using Meetup.NetStandard.Response.Groups;
 using Meetup.NetStandard.Response.Profiles;
 using Meetup.NetStandard.Tests.Helpers;
 using Xunit;
@@ -26,6 +29,18 @@ namespace Meetup.NetStandard.Tests
 
             var meetup = MeetupClient.WithOAuthToken("testToken", options);
             await meetup.Profiles.Get();
+        }
+
+        [Fact]
+        public async Task ProfileUpdateGeneratesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/testgroup/members/self",new HttpMethod("PATCH"))
+            };
+
+            var meetup = MeetupClient.WithOAuthToken("testToken", options);
+            await meetup.Profiles.Update(new Group{UrlName = "testgroup"},new ProfileUpdate{Bio="test"});
         }
 
         [Fact]

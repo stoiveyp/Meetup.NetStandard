@@ -13,16 +13,27 @@ namespace Meetup.NetStandard.Tests
         [Fact]
         public void GroupCallsGeneratedCorrectly()
         {
-            var meetup = MeetupClient.WithApiToken("testToken");
+            var meetup = MeetupClient.WithOAuthToken("testToken");
             Assert.NotNull(meetup.Groups);
         }
 
         [Fact]
         public async Task GetThrowsExceptionOnEmptyGroupName()
         {
-            var meetup = MeetupClient.WithApiToken("testToken");
+            var meetup = MeetupClient.WithOAuthToken("testToken");
             var error = await Assert.ThrowsAsync<ArgumentNullException>(() => meetup.Groups.Get(string.Empty));
             Assert.Equal("groupName",error.ParamName);
+        }
+
+        [Fact]
+        public async Task GetGroupGeneratesCorrectUrl()
+        {
+            var options = new MeetupClientOptions
+            {
+                Client = FakeHttpClient.AssertUrl("/tech-nottingham")
+            };
+            var meetup = MeetupClient.WithOAuthToken("testToken",options);
+            await meetup.Groups.Get("tech-nottingham");
         }
 
         [Fact]
@@ -30,10 +41,10 @@ namespace Meetup.NetStandard.Tests
         {
             var options = new MeetupClientOptions
             {
-                Client = FakeHttpClient.AssertUrl("/tech-nottingham")
+                Client = FakeHttpClient.AssertUrl("/self/groups")
             };
-            var meetup = MeetupClient.WithApiToken("testToken",options);
-            await meetup.Groups.Get("tech-nottingham");
+            var meetup = MeetupClient.WithOAuthToken("testToken", options);
+            await meetup.Groups.Get();
         }
 
         [Fact]
@@ -43,7 +54,7 @@ namespace Meetup.NetStandard.Tests
             {
                 Client = FakeHttpClient.AssertUrl("/tech-nottingham?fields=plain_text_no_images_description")
             };
-            var meetup = MeetupClient.WithApiToken("testToken", options);
+            var meetup = MeetupClient.WithOAuthToken("testToken", options);
             await meetup.Groups.Get("tech-nottingham",new []{ "plain_text_no_images_description" });
         }
 
@@ -54,7 +65,7 @@ namespace Meetup.NetStandard.Tests
             {
                 Client = FakeHttpClient.AssertResponse("Group")
             };
-            var meetup = MeetupClient.WithApiToken("testToken", options);
+            var meetup = MeetupClient.WithOAuthToken("testToken", options);
             var response = await meetup.Groups.Get("tech-nottingham");
             var data = response.Data;
 

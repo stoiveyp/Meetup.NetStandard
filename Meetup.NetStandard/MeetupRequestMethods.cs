@@ -26,6 +26,16 @@ namespace Meetup.NetStandard
             return response;
         }
 
+        internal static async Task<T> PatchAsync<T>(string requestUri, MeetupClientOptions options,
+            IEnumerable<KeyValuePair<string, string>> data)
+        {
+            var fullUri = $"{requestUri}{BuildQueryString(new Dictionary<string, string>(), options)}";
+            var content = new FormUrlEncodedContent(data);
+            var message = new HttpRequestMessage(new HttpMethod("PATCH"), fullUri) {Content = content};
+            var response = await options.Client.SendAsync(message).ConfigureAwait(false);
+            return await response.AsRawObject<T>(options);
+        }
+
         internal static async Task<HttpResponseMessage> PostAsync<TContent>(
     string requestUri,
     MeetupClientOptions options,
